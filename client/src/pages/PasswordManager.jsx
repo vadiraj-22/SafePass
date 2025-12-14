@@ -13,7 +13,7 @@ const PasswordManager = () => {
   const [error, setError] = useState('');
 
   const { token } = useAuth();
-  const API_URL = 'http://localhost:5000/api';
+  const API_URL = import.meta.env.VITE_API_URL || 'https://safepass-60b0.onrender.com/api';
 
   // Load passwords from backend
   useEffect(() => {

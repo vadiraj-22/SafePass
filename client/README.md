@@ -59,7 +59,7 @@ npm run dev
 
 5. **Open Application**
 - Frontend: http://localhost:5173
-- Backend API: http://localhost:5000
+- Backend API: https://safepass-60b0.onrender.com/
 
 ## 📁 Project Structure
 
