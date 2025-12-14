@@ -7,28 +7,27 @@ const Home = () => {
       <div className="fixed inset-0 z-10">
         <Video />
       </div>
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 sm:py-28 md:py-20">
         {/* Hero Section */}
-        <div className="text-center mb-60 pt-16">
-          <div className="my-screen-sm">
-            <h1 className="text-6xl md:text-7xl font-bold mb-6 my-24 hover:scale-105 transition-transform bg-linear-to-r from-purple-300 to-blue-500 bg-clip-text text-transparent">
+        <div className="text-center md:mb-60 mt-24 mb-98 pt-20 sm:pt-28 pb-8 sm:pb-12">
+          <div>
+            <h1 className="text-5xl sm:text-5xl md:text-7xl font-bold mb-6 my-8 md:my-24 hover:scale-105 transition-transform bg-linear-to-r from-purple-300 to-blue-500 bg-clip-text text-transparent">
               Password Security Suite
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto">
+            <p className="text-base sm:text-xl md:text-2xl text-gray-300 mb-6 max-w-3xl mx-auto">
               Military-grade password security tools to protect your digital
               life. Generate, analyze, and manage passwords with confidence.
             </p>
-
-            <div className="flex gap-4 justify-center ">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
                 href="#features"
-                className=" border border-gray-700 bg-white/20 hover:border-purple-500 text-white font-semibold px-8 py-4 rounded-lg transition text-lg"
+                className="inline-flex items-center justify-center bg-linear-to-r from-purple-500 to-blue-500 text-white font-semibold px-4 py-2 rounded-lg transition text-sm shadow-sm hover:scale-105"
               >
                 Get Started
               </a>
               <a
                 href="#about"
-                className="border border-gray-700 bg-white/20 hover:border-purple-500 text-white font-semibold px-8 py-4 rounded-lg transition text-lg"
+                className="inline-flex items-center justify-center border border-gray-700 bg-gray-900/40 text-gray-200 font-semibold px-4 py-2 rounded-lg transition text-sm hover:border-purple-500"
               >
                 Learn More
               </a>

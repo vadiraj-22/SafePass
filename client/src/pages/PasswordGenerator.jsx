@@ -160,16 +160,16 @@ const PasswordGenerator = () => {
 
         <div className='bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8'>
           {/* Generated Password Display */}
-          <div className='flex gap-3 mb-8'>
+          <div className='flex flex-col sm:flex-row gap-3 mb-8'>
             <input 
               type="text"
-              className='flex-1 bg-gray-900 text-white py-4 rounded-lg px-4 border border-gray-700 font-mono text-lg'
+              className='flex-1 min-w-0 bg-gray-900 text-white py-3 sm:py-4 rounded-lg px-3 sm:px-4 border border-gray-700 font-mono text-base sm:text-lg overflow-x-auto'
               readOnly
               ref={generatedPasswordRef}
               value={generatedPassword}
             />
             <button 
-              className={`${copied ? 'bg-green-500' : 'bg-linear-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600'} text-white font-semibold py-4 px-8 rounded-lg transition`}
+              className={`${copied ? 'bg-green-500' : 'bg-linear-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600'} text-white font-semibold py-3 sm:py-4 px-4 sm:px-8 rounded-lg transition w-full sm:w-auto`}
               onClick={copyToClipboard}
             >
               {copied ? '✓ Copied!' : '📋 Copy'}
@@ -197,7 +197,7 @@ const PasswordGenerator = () => {
               </div>
             </div>
 
-            <div className='flex gap-6'>
+            <div className='flex flex-col sm:flex-row gap-6'>
               <label className='flex items-center gap-3 cursor-pointer bg-gray-900 px-4 py-3 rounded-lg flex-1'>
                 <input 
                   type="checkbox"
@@ -239,7 +239,7 @@ const PasswordGenerator = () => {
               </div>
 
               {/* Metrics */}
-              <div className='grid grid-cols-3 gap-4 mb-6'>
+              <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6'>
                 <div className='bg-gray-900 p-4 rounded-lg text-center'>
                   <p className='text-gray-400 text-sm mb-1'>Length</p>
                   <p className='text-2xl font-bold'>{length}</p>

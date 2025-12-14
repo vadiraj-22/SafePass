@@ -6,3 +6,11 @@
   /* Using the exact radial gradient value from your original code */
   background: radial-gradient(125% 125% at 50% 10%, #000 40%, #63e 100%);
 }
+
+/* Small helpers for better mobile spacing */
+@media (max-width: 640px) {
+  .max-w-7xl {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
