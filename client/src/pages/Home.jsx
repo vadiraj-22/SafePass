@@ -7,14 +7,14 @@ const Home = () => {
       <div className="fixed inset-0 z-10">
         <Video />
       </div>
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 sm:py-28 md:py-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-24 sm:py-28 md:py-20">
         {/* Hero Section */}
-        <div className="text-center md:mb-60 mt-24 mb-98 pt-20 sm:pt-28 pb-8 sm:pb-12">
-          <div>
-            <h1 className="text-5xl sm:text-5xl md:text-7xl font-bold mb-6 my-8 md:my-24 hover:scale-105 transition-transform bg-linear-to-r from-purple-300 to-blue-500 bg-clip-text text-transparent">
+        <div className="text-center md:mb-60 mb-84 mt-20 pt-20 sm:pt-28 pb-8 ">
+          <div className="px-4 sm:px-6 lg:px-0">
+            <h1 className="text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 my-6  hover:scale-105 transition-transform bg-linear-to-r from-purple-300 to-blue-500 bg-clip-text text-transparent">
               Password Security Suite
             </h1>
-            <p className="text-base sm:text-xl md:text-2xl text-gray-300 mb-6 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 max-w-3xl mx-auto">
               Military-grade password security tools to protect your digital
               life. Generate, analyze, and manage passwords with confidence.
             </p>
@@ -44,7 +44,7 @@ const Home = () => {
             Everything you need to stay secure online
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
             <FeatureCard
               icon="🔍"
               title="Data Breach Checker"
@@ -69,21 +69,21 @@ const Home = () => {
         </div>
 
         {/* Stats Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-20">
           <div className="text-center">
-            <div className="text-5xl font-bold bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent mb-2">
+            <div className="text-4xl lg:text-5xl font-bold bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent mb-2">
               100%
             </div>
             <p className="text-gray-400">Client-Side Security</p>
           </div>
           <div className="text-center">
-            <div className="text-5xl font-bold bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent mb-2">
+            <div className="text-4xl lg:text-5xl font-bold bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent mb-2">
               256-bit
             </div>
             <p className="text-gray-400">Encryption Standard</p>
           </div>
           <div className="text-center">
-            <div className="text-5xl font-bold bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent mb-2">
+            <div className="text-4xl lg:text-5xl font-bold bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent mb-2">
               0
             </div>
             <p className="text-gray-400">Data Stored on Servers</p>
@@ -93,7 +93,7 @@ const Home = () => {
         {/* About Section */}
         <div
           id="about"
-          className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-12 text-center"
+          className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8 md:p-12 lg:p-16 text-center"
         >
           <h2 className="text-3xl font-bold mb-4 text-white">Why SafePass?</h2>
           <p className="text-gray-300 text-lg max-w-3xl mx-auto">
