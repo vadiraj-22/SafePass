@@ -6,10 +6,10 @@ interface WaveConfig {
 }
 
 class Wave {
-  phase: number;
-  offset: number;
-  frequency: number;
-  amplitude: number;
+  phase: number = 0;
+  offset: number = 0;
+  frequency: number = 0.001;
+  amplitude: number = 1;
 
   constructor(e: WaveConfig = {}) {
     this.init(e);
@@ -40,9 +40,9 @@ interface LineConfig {
 }
 
 class Line {
-  spring: number;
-  friction: number;
-  nodes: Node[];
+  spring: number = 0;
+  friction: number = 0.5;
+  nodes: Node[] = [];
 
   constructor(e: LineConfig = {}) {
     this.init(e);
