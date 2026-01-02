@@ -1,121 +1,107 @@
-// @ts-ignore
-function n(e: any) {
-  // @ts-ignore
-  this.init(e || {});
+interface WaveConfig {
+  phase?: number;
+  offset?: number;
+  frequency?: number;
+  amplitude?: number;
 }
 
-n.prototype = {
-  // @ts-ignore
-  init: function (e: any) {
-    // @ts-ignore
+class Wave {
+  phase: number;
+  offset: number;
+  frequency: number;
+  amplitude: number;
+
+  constructor(e: WaveConfig = {}) {
+    this.init(e);
+  }
+
+  init(e: WaveConfig) {
     this.phase = e.phase || 0;
-    // @ts-ignore
     this.offset = e.offset || 0;
-    // @ts-ignore
     this.frequency = e.frequency || 0.001;
-    // @ts-ignore
     this.amplitude = e.amplitude || 1;
-  },
-  update: function () {
-    return (
-      // @ts-ignore
-      (this.phase += this.frequency),
-      // @ts-ignore
-      (e = this.offset + Math.sin(this.phase) * this.amplitude)
-    );
-  },
-  value: function () {
-    return e;
-  },
-};
+  }
 
-// @ts-ignore
-function Line(e: any) {
-  // @ts-ignore
-  this.init(e || {});
+  update() {
+    this.phase += this.frequency;
+    e = this.offset + Math.sin(this.phase) * this.amplitude;
+    return e;
+  }
+
+  value() {
+    return e;
+  }
 }
 
-Line.prototype = {
-  // @ts-ignore
-  init: function (e: any) {
-    // @ts-ignore
-    this.spring = e.spring + 0.1 * Math.random() - 0.05;
-    // @ts-ignore
+
+
+interface LineConfig {
+  spring?: number;
+}
+
+class Line {
+  spring: number;
+  friction: number;
+  nodes: Node[];
+
+  constructor(e: LineConfig = {}) {
+    this.init(e);
+  }
+
+  init(e: LineConfig) {
+    this.spring = (e.spring || 0) + 0.1 * Math.random() - 0.05;
     this.friction = E.friction + 0.01 * Math.random() - 0.005;
-    // @ts-ignore
     this.nodes = [];
-    for (var t: any, n = 0; n < E.size; n++) {
-      t = new Node();
-      // @ts-ignore
+    for (let n = 0; n < E.size; n++) {
+      const t = new Node();
       t.x = pos.x;
-      // @ts-ignore
       t.y = pos.y;
-      // @ts-ignore
       this.nodes.push(t);
     }
-  },
-  update: function () {
-    // @ts-ignore
+  }
+  update() {
     let e = this.spring,
-      // @ts-ignore
       t = this.nodes[0];
-    // @ts-ignore
     t.vx += (pos.x - t.x) * e;
-    // @ts-ignore
     t.vy += (pos.y - t.y) * e;
-    // @ts-ignore
-    for (var n: any, i = 0, a = this.nodes.length; i < a; i++)
-      // @ts-ignore
-      (t = this.nodes[i]),
-        0 < i &&
-          // @ts-ignore
-          ((n = this.nodes[i - 1]),
-          (t.vx += (n.x - t.x) * e),
-          (t.vy += (n.y - t.y) * e),
-          (t.vx += n.vx * E.dampening),
-          (t.vy += n.vy * E.dampening)),
-        // @ts-ignore
-        (t.vx *= this.friction),
-        // @ts-ignore
-        (t.vy *= this.friction),
-        (t.x += t.vx),
-        (t.y += t.vy),
-        (e *= E.tension);
-  },
-  draw: function () {
+    for (let n: any, i = 0, a = this.nodes.length; i < a; i++) {
+      t = this.nodes[i];
+      if (0 < i) {
+        n = this.nodes[i - 1];
+        t.vx += (n.x - t.x) * e;
+        t.vy += (n.y - t.y) * e;
+        t.vx += n.vx * E.dampening;
+        t.vy += n.vy * E.dampening;
+      }
+      t.vx *= this.friction;
+      t.vy *= this.friction;
+      t.x += t.vx;
+      t.y += t.vy;
+      e *= E.tension;
+    }
+  }
+
+  draw() {
     let e: any,
       t: any,
-      // @ts-ignore
       n = this.nodes[0].x,
-      // @ts-ignore
       i = this.nodes[0].y;
-    // @ts-ignore
     ctx.beginPath();
-    // @ts-ignore
     ctx.moveTo(n, i);
-    // @ts-ignore
-    for (var a = 1, o = this.nodes.length - 2; a < o; a++) {
-      // @ts-ignore
+    for (let a = 1, o = this.nodes.length - 2; a < o; a++) {
       e = this.nodes[a];
-      // @ts-ignore
       t = this.nodes[a + 1];
       n = 0.5 * (e.x + t.x);
       i = 0.5 * (e.y + t.y);
-      // @ts-ignore
       ctx.quadraticCurveTo(e.x, e.y, n, i);
     }
-    // @ts-ignore
-    e = this.nodes[a];
-    // @ts-ignore
-    t = this.nodes[a + 1];
-    // @ts-ignore
+    e = this.nodes[this.nodes.length - 2];
+    t = this.nodes[this.nodes.length - 1];
     ctx.quadraticCurveTo(e.x, e.y, t.x, t.y);
-    // @ts-ignore
     ctx.stroke();
-    // @ts-ignore
     ctx.closePath();
-  },
-};
+  }
+}
 
 // @ts-ignore
 function onMousemove(e: any) {
@@ -208,14 +194,11 @@ function resizeCanvas() {
   }
 }
 
-// @ts-ignore
 var ctx: any,
-  // @ts-ignore
-  f: any,
+  f: Wave,
   e = 0,
-  pos = {},
-  // @ts-ignore
-  lines = [],
+  pos: Position = { x: 0, y: 0 },
+  lines: Line[] = [],
   E = {
     debug: false,
     friction: 0.5,
@@ -225,15 +208,16 @@ var ctx: any,
     tension: 0.98,
   };
 
-function Node() {
-  // @ts-ignore
-  this.x = 0;
-  // @ts-ignore
-  this.y = 0;
-  // @ts-ignore
-  this.vy = 0;
-  // @ts-ignore
-  this.vx = 0;
+interface Position {
+  x: number;
+  y: number;
+}
+
+class Node {
+  x: number = 0;
+  y: number = 0;
+  vy: number = 0;
+  vx: number = 0;
 }
 
 export const renderCanvas = function () {
@@ -254,7 +238,7 @@ export const renderCanvas = function () {
   
   ctx.running = true;
   ctx.frame = 1;
-  f = new n({
+  f = new Wave({
     phase: Math.random() * 2 * Math.PI,
     amplitude: 85,
     frequency: 0.0015,
