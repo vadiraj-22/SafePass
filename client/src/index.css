@@ -48,9 +48,94 @@ body {
 }
 
 /* Custom slider styles */
+.custom-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  outline: none;
+  pointer-events: auto;
+}
+
+.custom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a855f7, #3b82f6);
+  cursor: grab;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+  pointer-events: auto;
+}
+
+.custom-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.6), 0 4px 12px rgba(168, 85, 247, 0.3);
+  background: linear-gradient(135deg, #c084fc, #60a5fa);
+  cursor: grab;
+}
+
+.custom-slider::-webkit-slider-thumb:active {
+  transform: scale(1.25);
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.7), 0 6px 16px rgba(168, 85, 247, 0.4);
+  cursor: grabbing;
+}
+
+.custom-slider::-webkit-slider-track {
+  height: 12px;
+  background: transparent;
+  border-radius: 6px;
+  pointer-events: auto;
+}
+
+.custom-slider::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a855f7, #3b82f6);
+  cursor: grab;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+  -moz-appearance: none;
+  pointer-events: auto;
+}
+
+.custom-slider::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.6), 0 4px 12px rgba(168, 85, 247, 0.3);
+  background: linear-gradient(135deg, #c084fc, #60a5fa);
+  cursor: grab;
+}
+
+.custom-slider::-moz-range-thumb:active {
+  transform: scale(1.25);
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.7), 0 6px 16px rgba(168, 85, 247, 0.4);
+  cursor: grabbing;
+}
+
+.custom-slider::-moz-range-track {
+  height: 12px;
+  background: transparent;
+  border-radius: 6px;
+  border: none;
+  pointer-events: auto;
+}
+
+.custom-slider::-moz-focus-outer {
+  border: 0;
+}
+
+/* Ensure slider is interactive */
+.custom-slider:focus {
+  outline: none;
+}
+
+/* Legacy slider styles - keeping for compatibility */
 .slider-thumb {
   position: relative;
-  z-index: 20;
 }
 
 .slider-thumb::-webkit-slider-thumb {
@@ -63,29 +148,24 @@ body {
   border: 2px solid #ffffff;
   box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease;
-  position: relative;
-  z-index: 30;
-  /* Center the 20px thumb on the 3px track */
-  transform: translateY(-90%);
-  /* Half of track height (3px/2) */
 }
 
 .slider-thumb::-webkit-slider-thumb:hover {
-  transform: translateY(-80%) scale(1.15);
+  transform: scale(1.15);
   box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.6), 0 4px 12px rgba(168, 85, 247, 0.3);
   background: linear-gradient(135deg, #c084fc, #60a5fa);
 }
 
 .slider-thumb::-webkit-slider-thumb:active {
-  transform: translateY(-80%) scale(1.25);
+  transform: scale(1.25);
   box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.7), 0 6px 16px rgba(168, 85, 247, 0.4);
 }
 
 .slider-thumb::-webkit-slider-track {
   background: transparent;
   border: none;
-  height: 3px;
-  border-radius: 1.5px;
+  height: 12px;
+  border-radius: 6px;
 }
 
 .slider-thumb::-moz-range-thumb {
@@ -98,21 +178,16 @@ body {
   box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease;
   -moz-appearance: none;
-  position: relative;
-  z-index: 30;
-  /* Center the thumb for Firefox */
-  transform: translateY(-50%);
-  margin-top: 1.5px;
 }
 
 .slider-thumb::-moz-range-thumb:hover {
-  transform: translateY(-50%) scale(1.15);
+  transform: scale(1.15);
   box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.6), 0 4px 12px rgba(168, 85, 247, 0.3);
   background: linear-gradient(135deg, #c084fc, #60a5fa);
 }
 
 .slider-thumb::-moz-range-thumb:active {
-  transform: translateY(-50%) scale(1.25);
+  transform: scale(1.25);
   box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.7), 0 6px 16px rgba(168, 85, 247, 0.4);
 }
 
@@ -120,8 +195,8 @@ body {
 .slider-thumb::-moz-range-track {
   background: transparent;
   border: none;
-  height: 3px;
-  border-radius: 1.5px;
+  height: 12px;
+  border-radius: 6px;
 }
 
 .slider-thumb::-moz-focus-outer {

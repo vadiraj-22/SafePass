@@ -11,6 +11,8 @@ const PasswordGenerator = () => {
   const [genIsChecking, setGenIsChecking] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isSliding, setIsSliding] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const sliderRef = useRef(null);
 
   const generatedPasswordRef = useRef(null);
 
@@ -134,7 +136,77 @@ const PasswordGenerator = () => {
     checkPasswordBreach(pass);
   }, [length, charAllowed, numAllowed]);
 
-  // Copy to clipboard
+  // Handle slider dragging
+  const handleSliderChange = (e) => {
+    const newValue = Number(e.target.value);
+    setLength(newValue);
+  };
+
+  const handleMouseDown = (e) => {
+    setIsSliding(true);
+    setIsDragging(true);
+    e.preventDefault(); // Prevent text selection during drag
+  };
+
+  const handleMouseUp = () => {
+    setIsSliding(false);
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging || !sliderRef.current) return;
+    
+    const rect = sliderRef.current.getBoundingClientRect();
+    const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    const newValue = Math.round(8 + percent * (100 - 8));
+    setLength(newValue);
+    e.preventDefault();
+  };
+
+  const handleTouchStart = (e) => {
+    setIsSliding(true);
+    setIsDragging(true);
+    e.preventDefault();
+  };
+
+  const handleTouchEnd = () => {
+    setIsSliding(false);
+    setIsDragging(false);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging || !sliderRef.current) return;
+    
+    const touch = e.touches[0];
+    const rect = sliderRef.current.getBoundingClientRect();
+    const percent = Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width));
+    const newValue = Math.round(8 + percent * (100 - 8));
+    setLength(newValue);
+    e.preventDefault();
+  };
+
+  // Add global event listeners for dragging
+  useEffect(() => {
+    if (isDragging) {
+      const handleGlobalMouseMove = (e) => handleMouseMove(e);
+      const handleGlobalMouseUp = () => handleMouseUp();
+      const handleGlobalTouchMove = (e) => handleTouchMove(e);
+      const handleGlobalTouchEnd = () => handleTouchEnd();
+
+      document.addEventListener('mousemove', handleGlobalMouseMove);
+      document.addEventListener('mouseup', handleGlobalMouseUp);
+      document.addEventListener('touchmove', handleGlobalTouchMove);
+      document.addEventListener('touchend', handleGlobalTouchEnd);
+
+      return () => {
+        document.removeEventListener('mousemove', handleGlobalMouseMove);
+        document.removeEventListener('mouseup', handleGlobalMouseUp);
+        document.removeEventListener('touchmove', handleGlobalTouchMove);
+        document.removeEventListener('touchend', handleGlobalTouchEnd);
+      };
+    }
+  }, [isDragging]);
+
   const copyToClipboard = useCallback(() => {
     generatedPasswordRef.current?.select();
     window.navigator.clipboard.writeText(generatedPassword);
@@ -189,44 +261,60 @@ const PasswordGenerator = () => {
                   {length} characters
                 </span>
               </div>
-              <div className='relative group'>
+              <div className='relative group' ref={sliderRef}>
                 {/* Progress bar background */}
-                <div className='w-full h-3 bg-gray-700 rounded-lg overflow-hidden shadow-inner relative z-10'>
+                <div className='w-full h-3 bg-gray-700 rounded-lg overflow-hidden shadow-inner'>
                   <div 
                     className={`h-full bg-gradient-to-r from-purple-500 via-purple-400 to-blue-500 transition-all duration-200 ease-out shadow-lg ${isSliding ? 'shadow-purple-500/50' : ''}`}
                     style={{width: `${((length - 8) / (100 - 8)) * 100}%`}}
                   ></div>
                 </div>
-                {/* Slider - positioned to overlap the progress bar */}
+                {/* Slider input */}
                 <input 
                   type="range"
                   min={8}
                   max={100}
                   value={length}
-                  onChange={(e) => setLength(Number(e.target.value))}
-                  onInput={(e) => setLength(Number(e.target.value))} // Real-time updates
-                  onMouseDown={() => setIsSliding(true)}
-                  onMouseUp={() => setIsSliding(false)}
-                  onTouchStart={() => setIsSliding(true)}
-                  onTouchEnd={() => setIsSliding(false)}
-                  className={`absolute top-0 left-0 w-full h-3 bg-transparent rounded-lg appearance-none cursor-pointer slider-thumb transition-transform duration-200 z-20 ${isSliding ? 'scale-105' : 'group-hover:scale-105'}`}
-                  style={{
-                    background: 'transparent',
-                    margin: 0,
-                    padding: 0,
+                  onChange={handleSliderChange}
+                  onMouseDown={handleMouseDown}
+                  onTouchStart={handleTouchStart}
+                  className={`absolute top-0 left-0 w-full h-3 bg-transparent rounded-lg appearance-none cursor-pointer custom-slider transition-transform duration-200 ${isSliding ? 'scale-105' : 'group-hover:scale-105'}`}
+                  style={{ zIndex: 10 }}
+                />
+                {/* Clickable track area for better UX */}
+                <div 
+                  className="absolute top-0 left-0 w-full h-3 cursor-pointer"
+                  style={{ zIndex: 5 }}
+                  onMouseDown={(e) => {
+                    const rect = sliderRef.current.getBoundingClientRect();
+                    const percent = (e.clientX - rect.left) / rect.width;
+                    const newValue = Math.round(8 + percent * (100 - 8));
+                    setLength(Math.max(8, Math.min(100, newValue)));
+                    handleMouseDown(e);
+                  }}
+                  onTouchStart={(e) => {
+                    const touch = e.touches[0];
+                    const rect = sliderRef.current.getBoundingClientRect();
+                    const percent = (touch.clientX - rect.left) / rect.width;
+                    const newValue = Math.round(8 + percent * (100 - 8));
+                    setLength(Math.max(8, Math.min(100, newValue)));
+                    handleTouchStart();
                   }}
                 />
-                {/* Dynamic length indicator that follows the slider */}
+                {/* Dynamic length indicator that follows the slider thumb */}
                 <div 
-                  className={`absolute -top-12 transform -translate-x-1/2 bg-purple-600 text-white text-xs font-bold px-3 py-2 rounded-lg shadow-lg transition-all duration-75 ease-out z-40 pointer-events-none ${isSliding ? 'opacity-100 scale-110' : 'opacity-0 group-hover:opacity-100'}`}
+                  className={`absolute -top-14 bg-purple-600 text-white text-xs font-bold px-3 py-2 rounded-lg shadow-lg transition-all duration-75 ease-out pointer-events-none ${isSliding || isDragging ? 'opacity-100 scale-110' : 'opacity-0 group-hover:opacity-100'}`}
                   style={{
-                    left: `${((length - 8) / (100 - 8)) * 100}%`,
-                    transform: `translateX(-50%) ${isSliding ? 'translateY(-2px) scale(1.1)' : ''}`,
+                    left: `calc(${((length - 8) / (100 - 8)) * 100}% )`,
+                    transform: `translateX(-50%) ${isSliding || isDragging ? 'translateY(-4px) scale(1.1)' : 'translateY(0px)'}`,
+                    zIndex: 30,
+                    minWidth: '40px',
+                    textAlign: 'center'
                   }}
                 >
                   <div className="relative">
                     {length}
-                    {/* Arrow pointing down to the slider */}
+                    {/* Arrow pointing down to the slider thumb */}
                     <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-purple-600"></div>
                   </div>
                 </div>

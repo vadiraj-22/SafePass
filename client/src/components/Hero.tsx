@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function Hero() {
   return (
@@ -9,8 +10,8 @@ export function Hero() {
           <div className="relative flex items-center whitespace-nowrap rounded-full border bg-gray-900/50 backdrop-blur-sm border-gray-800 px-3 py-1 text-xs leading-6 text-gray-300 hover:border-purple-500/50 transition-all duration-300">
             <Shield className="h-5 p-1 text-purple-400" /> 
             <span className="font-mono">Introducing SafePass.</span>
-            <a
-              href="/features"
+            <Link
+              to="/features"
               className="hover:text-purple-400 ml-1 flex items-center font-semibold transition-colors font-mono"
             >
               <div className="absolute inset-0 flex" aria-hidden="true" />
@@ -18,7 +19,7 @@ export function Hero() {
               <span aria-hidden="true">
                 <ArrowRight className="h-4 w-4 ml-1" />
               </span>
-            </a>
+            </Link>
           </div>
         </div>
         
@@ -54,16 +55,16 @@ export function Hero() {
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-4 px-4">
-            <a href="/password-generator" className="w-full sm:w-auto">
+            <Link to="/password-generator" className="w-full sm:w-auto">
               <Button variant="default" size="lg" className="font-mono w-full sm:w-auto">
                 START NOW
               </Button>
-            </a>
-            <a href="/about" className="w-full sm:w-auto">
+            </Link>
+            <Link to="/about" className="w-full sm:w-auto">
               <Button variant="outline" size="lg" className="font-mono w-full sm:w-auto">
                 LEARN MORE
               </Button>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
