@@ -47,90 +47,115 @@ body {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
 
-/* Custom slider styles */
-.custom-slider {
+/* Simple range slider styles - Enhanced for drag functionality */
+input[type="range"] {
   -webkit-appearance: none;
-  appearance: none;
-  background: transparent;
-  outline: none;
-  pointer-events: auto;
-}
-
-.custom-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #a855f7, #3b82f6);
-  cursor: grab;
-  border: 2px solid #ffffff;
-  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
-  transition: all 0.2s ease;
-  pointer-events: auto;
-}
-
-.custom-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
-  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.6), 0 4px 12px rgba(168, 85, 247, 0.3);
-  background: linear-gradient(135deg, #c084fc, #60a5fa);
-  cursor: grab;
-}
-
-.custom-slider::-webkit-slider-thumb:active {
-  transform: scale(1.25);
-  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.7), 0 6px 16px rgba(168, 85, 247, 0.4);
-  cursor: grabbing;
-}
-
-.custom-slider::-webkit-slider-track {
-  height: 12px;
-  background: transparent;
-  border-radius: 6px;
-  pointer-events: auto;
-}
-
-.custom-slider::-moz-range-thumb {
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #a855f7, #3b82f6);
-  cursor: grab;
-  border: 2px solid #ffffff;
-  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
-  transition: all 0.2s ease;
   -moz-appearance: none;
-  pointer-events: auto;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: #374151;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
 }
 
-.custom-slider::-moz-range-thumb:hover {
-  transform: scale(1.15);
-  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.6), 0 4px 12px rgba(168, 85, 247, 0.3);
-  background: linear-gradient(135deg, #c084fc, #60a5fa);
+input[type="range"]::-webkit-slider-track {
+  -webkit-appearance: none;
+  background: transparent;
+  height: 8px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #a855f7;
+  cursor: grab;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  margin-top: -2px;
+  position: relative;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: #c084fc;
   cursor: grab;
 }
 
-.custom-slider::-moz-range-thumb:active {
-  transform: scale(1.25);
-  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.7), 0 6px 16px rgba(168, 85, 247, 0.4);
+input[type="range"]::-webkit-slider-thumb:active {
   cursor: grabbing;
+  transform: scale(1.1);
 }
 
-.custom-slider::-moz-range-track {
-  height: 12px;
-  background: transparent;
-  border-radius: 6px;
+input[type="range"]::-moz-range-track {
+  background: #374151;
+  height: 8px;
+  border-radius: 4px;
   border: none;
-  pointer-events: auto;
+  outline: none;
 }
 
-.custom-slider::-moz-focus-outer {
+input[type="range"]::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #a855f7;
+  cursor: grab;
+  border: 2px solid #ffffff;
+  -moz-appearance: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  background: #c084fc;
+  cursor: grab;
+}
+
+input[type="range"]::-moz-range-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.1);
+}
+
+/* For Firefox */
+input[type="range"]::-moz-focus-outer {
   border: 0;
 }
 
-/* Ensure slider is interactive */
-.custom-slider:focus {
+/* For Edge/IE */
+input[type="range"]::-ms-track {
+  background: #374151;
+  height: 8px;
+  border-radius: 4px;
+  border: none;
   outline: none;
+  color: transparent;
+}
+
+input[type="range"]::-ms-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #a855f7;
+  cursor: grab;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+input[type="range"]::-ms-thumb:hover {
+  background: #c084fc;
+}
+
+input[type="range"]::-ms-thumb:active {
+  cursor: grabbing;
 }
 
 /* Legacy slider styles - keeping for compatibility */
