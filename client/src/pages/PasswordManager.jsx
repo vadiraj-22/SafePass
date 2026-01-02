@@ -98,15 +98,16 @@ const PasswordManager = () => {
     
       <div className='max-w-6xl mx-auto'>
         <div className='text-center mb-12'>
-          <h1 className='text-5xl font-bold mb-4 bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent'>
-            🗄️ Password Manager
+          <h1 className='text-5xl font-bold mb-4 cybersec-title'>
+            <span className='mr-3'>🗄️</span>
+            <span className='bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent'>
+              Password Manager
+            </span>
           </h1>
-          <p className='text-gray-400 text-lg'>
-            My Saved Passwords (Secure Local Storage Demo)
-          </p>
-          <div className='mt-4 inline-block bg-green-900/30 border border-green-500/50 rounded-lg px-4 py-2'>
-            <p className='text-green-400 text-sm'>
-              ✅ Secure: Passwords are stored in MongoDB with authentication
+
+          <div className='mt-4 inline-block bg-purple-900/30 border border-purple-500/50 rounded-lg px-4 py-2'>
+            <p className='text-yellow-400 text-sm'>
+              Secure: Passwords are stored in MongoDB with authentication
             </p>
           </div>
         </div>
@@ -153,7 +154,7 @@ const PasswordManager = () => {
 
                 <button 
                   type="submit"
-                  className='w-full bg-linear-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold py-3 rounded-lg transition'
+                  className='w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold py-3 rounded-lg transition-all duration-300 font-mono uppercase tracking-wide hover:scale-105'
                 >
                   💾 Save Password
                 </button>

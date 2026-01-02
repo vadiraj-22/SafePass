@@ -10,6 +10,7 @@ const PasswordGenerator = () => {
   const [genLeakedStatus, setGenLeakedStatus] = useState(null);
   const [genIsChecking, setGenIsChecking] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [isSliding, setIsSliding] = useState(false);
 
   const generatedPasswordRef = useRef(null);
 
@@ -150,8 +151,11 @@ const PasswordGenerator = () => {
      
       <div className='max-w-4xl mx-auto'>
         <div className='text-center mb-12'>
-          <h1 className='text-5xl font-bold mb-4 bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent'>
-            ⚡ Random Password Generator
+          <h1 className='text-5xl font-bold mb-4 cybersec-title'>
+            <span className='mr-3'>⚡</span>
+            <span className='bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent'>
+              Random Password Generator
+            </span>
           </h1>
           <p className='text-gray-400 text-lg'>
             Generate cryptographically secure passwords with customizable options
@@ -169,7 +173,7 @@ const PasswordGenerator = () => {
               value={generatedPassword}
             />
             <button 
-              className={`${copied ? 'bg-green-500' : 'bg-linear-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600'} text-white font-semibold py-3 sm:py-4 px-4 sm:px-8 rounded-lg transition w-full sm:w-auto`}
+              className={`${copied ? 'bg-green-500' : 'bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600'} text-white font-semibold py-3 sm:py-4 px-4 sm:px-8 rounded-lg transition-all duration-300 w-full sm:w-auto font-mono uppercase tracking-wide hover:scale-105`}
               onClick={copyToClipboard}
             >
               {copied ? '✓ Copied!' : '📋 Copy'}
@@ -181,19 +185,55 @@ const PasswordGenerator = () => {
             <div>
               <div className='flex justify-between mb-3'>
                 <label className='text-sm font-semibold'>Password Length</label>
-                <span className='text-sm text-purple-400 font-semibold'>{length} characters</span>
+                <span className={`text-sm font-semibold transition-all duration-200 ${isSliding ? 'text-purple-300 scale-110' : 'text-purple-400'}`}>
+                  {length} characters
+                </span>
               </div>
-              <input 
-                type="range"
-                min={8}
-                max={100}
-                value={length}
-                onChange={(e) => setLength(Number(e.target.value))}
-                className='w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-purple-500'
-              />
-              <div className='flex justify-between text-xs text-gray-500 mt-1'>
-                <span>8</span>
-                <span>100</span>
+              <div className='relative group'>
+                {/* Progress bar background */}
+                <div className='w-full h-3 bg-gray-700 rounded-lg overflow-hidden shadow-inner relative z-10'>
+                  <div 
+                    className={`h-full bg-gradient-to-r from-purple-500 via-purple-400 to-blue-500 transition-all duration-200 ease-out shadow-lg ${isSliding ? 'shadow-purple-500/50' : ''}`}
+                    style={{width: `${((length - 8) / (100 - 8)) * 100}%`}}
+                  ></div>
+                </div>
+                {/* Slider - positioned to overlap the progress bar */}
+                <input 
+                  type="range"
+                  min={8}
+                  max={100}
+                  value={length}
+                  onChange={(e) => setLength(Number(e.target.value))}
+                  onInput={(e) => setLength(Number(e.target.value))} // Real-time updates
+                  onMouseDown={() => setIsSliding(true)}
+                  onMouseUp={() => setIsSliding(false)}
+                  onTouchStart={() => setIsSliding(true)}
+                  onTouchEnd={() => setIsSliding(false)}
+                  className={`absolute top-0 left-0 w-full h-3 bg-transparent rounded-lg appearance-none cursor-pointer slider-thumb transition-transform duration-200 z-20 ${isSliding ? 'scale-105' : 'group-hover:scale-105'}`}
+                  style={{
+                    background: 'transparent',
+                    margin: 0,
+                    padding: 0,
+                  }}
+                />
+                {/* Dynamic length indicator that follows the slider */}
+                <div 
+                  className={`absolute -top-12 transform -translate-x-1/2 bg-purple-600 text-white text-xs font-bold px-3 py-2 rounded-lg shadow-lg transition-all duration-75 ease-out z-40 pointer-events-none ${isSliding ? 'opacity-100 scale-110' : 'opacity-0 group-hover:opacity-100'}`}
+                  style={{
+                    left: `${((length - 8) / (100 - 8)) * 100}%`,
+                    transform: `translateX(-50%) ${isSliding ? 'translateY(-2px) scale(1.1)' : ''}`,
+                  }}
+                >
+                  <div className="relative">
+                    {length}
+                    {/* Arrow pointing down to the slider */}
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-purple-600"></div>
+                  </div>
+                </div>
+              </div>
+              <div className='flex justify-between text-xs text-gray-500 mt-2'>
+                <span className='transition-colors duration-200 hover:text-purple-400'>8</span>
+                <span className='transition-colors duration-200 hover:text-purple-400'>100</span>
               </div>
             </div>
 

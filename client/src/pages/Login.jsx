@@ -36,7 +36,7 @@ const Login = () => {
       
       <div className='max-w-md mx-auto'>
         <div className='text-center mb-8'>
-          <h1 className='text-5xl font-bold mb-4 bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent'>
+          <h1 className='text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent cybersec-title'>
             Welcome Back
           </h1>
           <p className='text-gray-400 text-lg'>
@@ -79,7 +79,7 @@ const Login = () => {
             <button 
               type="submit"
               disabled={loading}
-              className='w-full bg-linear-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition'
+              className='w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-all duration-300 font-mono uppercase tracking-wide hover:scale-105'
             >
               {loading ? 'Logging in...' : 'Login'}
             </button>

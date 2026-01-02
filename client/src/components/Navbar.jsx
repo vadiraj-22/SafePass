@@ -13,36 +13,38 @@ const Navbar = () => {
           {/* Logo/Brand */}
           <div className='flex items-center gap-3'>
             <Link to='/' className='flex items-center gap-2'>
-              <span className='w-14 h-14'><img src="/favicon.png" alt="" /></span>
-              <span className='text-xl sm:text-2xl font-bold bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent'>
+            <img src="/favicon_2.png" className='h-16 w-16' alt="" />
+              <span className='text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent cybersec-title'>
                 SafePass
               </span>
+
             </Link>
           </div>
 
           {/* Desktop Links */}
-          <div className='hidden md:flex items-center gap-6'>
-            <Link to='/' className='text-gray-300 hover:text-white transition'>Home</Link>
-            <Link to='/features' className='text-gray-300 hover:text-white transition'>Features</Link>
+          <div className='hidden md:flex items-center gap-8'>
+            <Link to='/' className='text-gray-300 hover:text-purple-400 transition font-mono text-sm'>HOME</Link>
+            <Link to='/features' className='text-gray-300 hover:text-purple-400 transition font-mono text-sm'>FEATURES</Link>
+            <Link to='/password-generator' className='text-gray-300 hover:text-purple-400 transition font-mono text-sm'>GENERATOR</Link>
+            <Link to='/breach-checker' className='text-gray-300 hover:text-purple-400 transition font-mono text-sm'>BREACH CHECKER</Link>
             {isAuthenticated && (
-              <Link to='/password-manager' className='text-gray-300 hover:text-white transition'>My Vault</Link>
+              <Link to='/password-manager' className='text-gray-300 hover:text-purple-400 transition font-mono text-sm'>VAULT</Link>
             )}
-            <a href='#about' className='text-gray-300 hover:text-white transition'>About</a>
           </div>
 
           {/* Auth Buttons (desktop) */}
           <div className='hidden md:flex items-center gap-4'>
             {isAuthenticated ? (
               <>
-                <span className='text-gray-400 text-sm'>
+                <span className='text-gray-400 text-sm font-mono'>
                   Welcome, <span className='text-purple-400 font-semibold'>{user?.username}</span>
                 </span>
-                <button onClick={logout} className='text-gray-300 hover:text-white transition px-4 py-2 border border-gray-700 hover:border-purple-500 rounded-lg'>Logout</button>
+                <button onClick={logout} className='text-gray-300 hover:text-white transition px-4 py-2 border border-gray-700 hover:border-purple-500 rounded-lg font-mono text-sm'>LOGOUT</button>
               </>
             ) : (
               <>
-                <Link to='/login' className='text-gray-300 hover:text-white transition px-4 py-2 border border-gray-700 hover:border-purple-500 rounded-lg'>Login</Link>
-                <Link to='/signup' className='bg-linear-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition'>Sign Up</Link>
+                <Link to='/login' className='text-gray-300 hover:text-white transition px-4 py-2 border border-gray-700 hover:border-purple-500 rounded-lg font-mono text-sm'>LOGIN</Link>
+                <Link to='/signup' className='bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition font-mono text-sm'>SIGN UP</Link>
               </>
             )}
           </div>
@@ -60,23 +62,24 @@ const Navbar = () => {
       {open && (
         <div className='md:hidden bg-black/90 border-t border-gray-800'>
           <div className='px-4 pt-2 pb-4 space-y-2'>
-            <Link to='/' onClick={() => setOpen(false)} className='block text-gray-300 hover:text-white py-2'>Home</Link>
-            <Link to='/features' onClick={() => setOpen(false)} className='block text-gray-300 hover:text-white py-2'>Features</Link>
+            <Link to='/' onClick={() => setOpen(false)} className='block text-gray-300 hover:text-purple-400 py-2 font-mono text-sm'>HOME</Link>
+            <Link to='/features' onClick={() => setOpen(false)} className='block text-gray-300 hover:text-purple-400 py-2 font-mono text-sm'>FEATURES</Link>
+            <Link to='/password-generator' onClick={() => setOpen(false)} className='block text-gray-300 hover:text-purple-400 py-2 font-mono text-sm'>GENERATOR</Link>
+            <Link to='/breach-checker' onClick={() => setOpen(false)} className='block text-gray-300 hover:text-purple-400 py-2 font-mono text-sm'>BREACH CHECKER</Link>
             {isAuthenticated && (
-              <Link to='/password-manager' onClick={() => setOpen(false)} className='block text-gray-300 hover:text-white py-2'>My Vault</Link>
+              <Link to='/password-manager' onClick={() => setOpen(false)} className='block text-gray-300 hover:text-purple-400 py-2 font-mono text-sm'>VAULT</Link>
             )}
-            <a href='#about' onClick={() => setOpen(false)} className='block text-gray-300 hover:text-white py-2'>About</a>
 
             <div className='border-t border-gray-800 pt-3'>
               {isAuthenticated ? (
                 <>
-                  <div className='text-gray-400 text-sm py-2'>Welcome, <span className='text-purple-400 font-semibold'>{user?.username}</span></div>
-                  <button onClick={() => { logout(); setOpen(false); }} className='w-full text-left text-gray-300 hover:text-white py-2'>Logout</button>
+                  <div className='text-gray-400 text-sm py-2 font-mono'>Welcome, <span className='text-purple-400 font-semibold'>{user?.username}</span></div>
+                  <button onClick={() => { logout(); setOpen(false); }} className='w-full text-left text-gray-300 hover:text-white py-2 font-mono text-sm'>LOGOUT</button>
                 </>
               ) : (
                 <>
-                  <Link to='/login' onClick={() => setOpen(false)} className='block text-gray-300 hover:text-white py-2'>Login</Link>
-                  <Link to='/signup' onClick={() => setOpen(false)} className='block bg-linear-to-r from-purple-500 to-blue-500 text-white font-semibold px-3 py-2 rounded-lg mt-2'>Sign Up</Link>
+                  <Link to='/login' onClick={() => setOpen(false)} className='block text-gray-300 hover:text-white py-2 font-mono text-sm'>LOGIN</Link>
+                  <Link to='/signup' onClick={() => setOpen(false)} className='block bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold px-3 py-2 rounded-lg mt-2 font-mono text-sm'>SIGN UP</Link>
                 </>
               )}
             </div>

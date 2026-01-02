@@ -119,8 +119,11 @@ const BreachAndStrengthChecker = () => {
 
       <div className='max-w-4xl mx-auto'>
         <div className='text-center mb-12'>
-          <h1 className='text-5xl font-bold mb-4 bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent'>
-            🔍 Password Strength & Breach Checker
+          <h1 className='text-5xl font-bold mb-4 cybersec-title'>
+            <span className='mr-3'>🔍</span>
+            <span className='bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent'>
+              Password Strength & Breach Checker
+            </span>
           </h1>
           <p className='text-gray-400 text-lg'>
             Analyze your password strength and check if it's been compromised in data breaches

@@ -1,107 +1,97 @@
 import FeatureCard from "../components/FeatureCard";
-import Video from "../components/Video";
+import { Hero } from "../components/Hero";
+import { useEffect } from "react";
+import { renderCanvas } from "../components/ui/canvas";
 
 const Home = () => {
+  useEffect(() => {
+    // Initialize canvas for the entire page
+    renderCanvas();
+  }, []);
+
   return (
-    <div className="relative min-h-screen">
-      <div className="fixed inset-0 z-10">
-        <Video />
-      </div>
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-24 sm:py-28 md:py-20">
+    <div className="relative min-h-screen bg-black">
+      {/* Full page canvas animation */}
+      <canvas
+        className="pointer-events-none fixed inset-0 w-full bg-transparent z-0"
+        id="canvas"
+        style={{ height: '100vh', minHeight: '100vh' }}
+      ></canvas>
+      
+      {/* All content with proper z-index */}
+      <div className="relative z-10">
         {/* Hero Section */}
-        <div className="text-center md:mb-60 mb-84 mt-20 pt-20 sm:pt-28 pb-8 ">
-          <div className="px-4 sm:px-6 lg:px-0">
-            <h1 className="text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 my-6  hover:scale-105 transition-transform bg-linear-to-r from-purple-300 to-blue-500 bg-clip-text text-transparent">
-              Password Security Suite
-            </h1>
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 max-w-3xl mx-auto">
-              Military-grade password security tools to protect your digital
-              life. Generate, analyze, and manage passwords with confidence.
+        <Hero />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 pb-16 md:pb-24 mt-8 mb-8 md:mt-0 md:mb-0">
+          {/* Features Section */}
+          <div id="features" className="mb-20 md:mb-32">
+            <h2 className="text-2xl md:text-4xl font-bold text-center mb-4 md:mb-4 text-white cybersec-title">
+              POWERFUL SECURITY FEATURES
+            </h2>
+            <p className="text-center text-gray-400 mb-8 md:mb-12 text-sm md:text-lg font-mono px-4">
+              Everything you need to stay secure online
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <a
-                href="#features"
-                className="inline-flex items-center justify-center bg-linear-to-r from-purple-500 to-blue-500 text-white font-semibold px-4 py-2 rounded-lg transition text-sm shadow-sm hover:scale-105"
-              >
-                Get Started
-              </a>
-              <a
-                href="#about"
-                className="inline-flex items-center justify-center border border-gray-700 bg-gray-900/40 text-gray-200 font-semibold px-4 py-2 rounded-lg transition text-sm hover:border-purple-500"
-              >
-                Learn More
-              </a>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 lg:gap-8 xl:gap-10 mb-12 md:mb-16">
+              <FeatureCard
+                icon="🔍"
+                title="Data Breach Checker"
+                description="Instantly check if your password has been compromised in known data breaches using the Have I Been Pwned database."
+                link="/breach-checker"
+              />
+
+              <FeatureCard
+                icon="⚡"
+                title="Password Generator"
+                description="Generate cryptographically secure random passwords with customizable length and character types."
+                link="/password-generator"
+              />
+
+              <FeatureCard
+                icon="🗄️"
+                title="Password Manager"
+                description="Securely store and manage all your passwords with MongoDB backend and JWT authentication."
+                link="/password-manager"
+              />
             </div>
           </div>
-        </div>
 
-        {/* Features Section */}
-        <div id="features" className="mb-20">
-          <h2 className="text-4xl font-bold text-center mb-4 text-white">
-            Powerful Security Features
-          </h2>
-          <p className="text-center text-gray-400 mb-12 text-lg">
-            Everything you need to stay secure online
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
-            <FeatureCard
-              icon="🔍"
-              title="Data Breach Checker"
-              description="Instantly check if your password has been compromised in known data breaches using the Have I Been Pwned database."
-              link="/breach-checker"
-            />
-
-            <FeatureCard
-              icon="⚡"
-              title="Password Generator"
-              description="Generate cryptographically secure random passwords with customizable length and character types."
-              link="/password-generator"
-            />
-
-            <FeatureCard
-              icon="🗄️"
-              title="Password Manager"
-              description="Securely store and manage all your passwords with MongoDB backend and JWT authentication."
-              link="/password-manager"
-            />
-          </div>
-        </div>
-
-        {/* Stats Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-20">
-          <div className="text-center">
-            <div className="text-4xl lg:text-5xl font-bold bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent mb-2">
-              100%
+          {/* Stats Section */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-6 lg:gap-8 mb-16 md:mb-20">
+            <div className="text-center bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-6 md:p-6 hover:border-purple-500/50 transition-all duration-300">
+              <div className="text-2xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent mb-2 md:mb-2 cybersec-title">
+                100%
+              </div>
+              <p className="text-gray-400 font-mono text-xs md:text-sm">CLIENT-SIDE SECURITY</p>
             </div>
-            <p className="text-gray-400">Client-Side Security</p>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl lg:text-5xl font-bold bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent mb-2">
-              256-bit
+            <div className="text-center bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-6 md:p-6 hover:border-purple-500/50 transition-all duration-300">
+              <div className="text-2xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent mb-2 md:mb-2 cybersec-title">
+                256-bit
+              </div>
+              <p className="text-gray-400 font-mono text-xs md:text-sm">ENCRYPTION STANDARD</p>
             </div>
-            <p className="text-gray-400">Encryption Standard</p>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl lg:text-5xl font-bold bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent mb-2">
-              0
+            <div className="text-center bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-6 md:p-6 hover:border-purple-500/50 transition-all duration-300">
+              <div className="text-2xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent mb-2 md:mb-2 cybersec-title">
+                0
+              </div>
+              <p className="text-gray-400 font-mono text-xs md:text-sm">DATA STORED ON SERVERS</p>
             </div>
-            <p className="text-gray-400">Data Stored on Servers</p>
           </div>
-        </div>
 
-        {/* About Section */}
-        <div
-          id="about"
-          className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8 md:p-12 lg:p-16 text-center"
-        >
-          <h2 className="text-3xl font-bold mb-4 text-white">Why SafePass?</h2>
-          <p className="text-gray-300 text-lg max-w-3xl mx-auto">
-            SafePass is built with security-first principles. All operations
-            happen locally in your browser, ensuring your passwords never leave
-            your device. We use industry-standard cryptographic algorithms and
-            follow best practices to keep your data safe.
-          </p>
+          {/* About Section */}
+          <div
+            id="about"
+            className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-6 md:p-8 lg:p-12 xl:p-16 text-center"
+          >
+            <h2 className="text-xl md:text-3xl font-bold mb-4 md:mb-6 text-white cybersec-title">WHY SAFEPASS?</h2>
+            <p className="text-gray-300 text-sm md:text-lg max-w-3xl mx-auto leading-relaxed">
+              SafePass is built with security-first principles. All operations
+              happen locally in your browser, ensuring your passwords never leave
+              your device. We use industry-standard cryptographic algorithms and
+              follow best practices to keep your data safe.
+            </p>
+          </div>
         </div>
       </div>
     </div>
