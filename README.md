@@ -466,7 +466,7 @@ copies or substantial portions of the Software.
 
 - 🌐 Website: [https://safepass-ewqi.onrender.com/](https://safepass-ewqi.onrender.com/)
 
-- 📧 Email: vadirajjoshi22504@gmail.com]
+- 📧 Email: vadirajjoshi22504@gmail.com
 
 ---
 
@@ -489,7 +489,7 @@ copies or substantial portions of the Software.
 
 **[Try it Now →](https://safepass-ewqi.onrender.com/)**
 
-Made with ❤️ and ☕ by the SafePass Team
+Made with ❤️ and ☕ by the SafePass Tea
 
 ⭐ Star this repo if you find it helpful!
 
