@@ -54,7 +54,7 @@ const Footer = () => {
           {/* Copyright */}
           <div className='flex flex-col md:flex-row justify-between items-center w-full gap-4'>
             <p className='text-gray-500 text-sm font-mono'>
-              © 2024 SafePass. All rights reserved. Built with security in mind.
+             &copy; {new Date().getFullYear()} SafePass. All rights reserved. Built with security in mind.
             </p>
             <div className='flex gap-6 text-xs text-gray-500'>
               <a href="#privacy" className='hover:text-purple-400 transition-colors font-mono'>PRIVACY POLICY</a>

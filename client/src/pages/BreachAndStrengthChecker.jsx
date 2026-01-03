@@ -118,9 +118,8 @@ const BreachAndStrengthChecker = () => {
     <div className='relative bg-black text-white min-h-screen pt-24 pb-16 px-6'>
 
       <div className='max-w-4xl mx-auto'>
-        <div className='text-center mb-12'>
-          <h1 className='text-5xl font-bold mb-4 cybersec-title'>
-            <span className='mr-3'>🔍</span>
+        <div className='text-center mb-18'>
+          <h1 className='md:text-5xl text-4xl font-bold my-4 cybersec-title'>
             <span className='bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent'>
               Password Strength & Breach Checker
             </span>
