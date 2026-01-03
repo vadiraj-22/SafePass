@@ -35,11 +35,11 @@
 *Securely store and manage all your passwords with MongoDB backend and JWT authentication*
 
 ### 🔑 Cryptographic Password Generator
-![Password Generator](./client/public/screenshots/random_password.png)
+![Password Generator](./client/public/screenshots/password_generator.png)
 *Generate military-grade passwords with customizable length and character types*
 
 ### 🔍 Password Strength & Breach Checker
-![Breach Checker](./client/public/screenshots/password_strength.png)
+![Breach Checker](./client/public/screenshots/breach_checker.png)
 *Analyze password strength and check against 70M+ compromised passwords using Have I Been Pwned API*
 
 </div>
