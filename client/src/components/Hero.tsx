@@ -32,7 +32,7 @@ export function Hero() {
               <div className="absolute bottom-2 left-2 w-4 h-4 border-l-2 border-b-2 border-purple-400"></div>
               <div className="absolute bottom-2 right-2 w-4 h-4 border-r-2 border-b-2 border-purple-400"></div>
               
-              <h1 className="cybersec-title select-none px-2 md:px-3 py-2 text-center text-xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight tracking-tight bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
+              <h1 className="cybersec-title select-none px-2 md:px-3 py-2 text-center text-xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight tracking-tight bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
                 Your complete platform for Password Security.
               </h1>
               <div className="flex items-center justify-center gap-1 mt-8 md:mt-4">
@@ -47,7 +47,7 @@ export function Hero() {
           
           <h2 className="mt-8 md:mt-8 text-base md:text-xl lg:text-2xl text-white font-mono px-4">
             Welcome to your security playground! We're{" "}
-            <span className="bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent font-bold cybersec-title">SafePass</span>
+            <span className="bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent font-bold cybersec-title">SafePass</span>
           </h2>
           <p className="mx-auto mb-8 md:mb-8 mt-4 md:mt-4 max-w-2xl px-6 text-xs md:text-base text-gray-400 lg:text-lg">
             We craft military-grade password security tools and provide resources

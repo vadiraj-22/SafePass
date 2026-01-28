@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useState } from 'react';
+import { motion, spring } from 'motion/react'
 
 const Navbar = () => {
   const { isAuthenticated, user, logout } = useAuth();
@@ -13,8 +14,8 @@ const Navbar = () => {
           {/* Logo/Brand */}
           <div className='flex items-center gap-3'>
             <Link to='/' className='flex items-center gap-2'>
-            <img src="/favicon_2.png" className='h-16 w-16' alt="" />
-              <span className='text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent cybersec-title'>
+              <img src="/favicon_2.png" className='h-16 w-16' alt="" />
+              <span className='text-xl sm:text-2xl font-bold bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent cybersec-title'>
                 SafePass
               </span>
 
@@ -23,8 +24,8 @@ const Navbar = () => {
 
           {/* Desktop Links */}
           <div className='hidden md:flex items-center gap-8'>
-            <Link to='/' className='text-gray-300 hover:text-purple-400 transition font-mono text-sm'>HOME</Link>
-            <Link to='/features' className='text-gray-300 hover:text-purple-400 transition font-mono text-sm'>FEATURES</Link>
+            <Link to='/' className='text-gray-300  hover:text-purple-400 transition font-mono text-sm'>HOME</Link>
+            <Link to='/features' className='text-gray-300  hover:text-purple-400 transition font-mono text-sm'>FEATURES</Link>
             <Link to='/password-generator' className='text-gray-300 hover:text-purple-400 transition font-mono text-sm'>GENERATOR</Link>
             <Link to='/breach-checker' className='text-gray-300 hover:text-purple-400 transition font-mono text-sm'>BREACH CHECKER</Link>
             {isAuthenticated && (
@@ -43,8 +44,43 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link to='/login' className='text-gray-300 hover:text-white transition px-4 py-2 border border-gray-700 hover:border-purple-500 rounded-lg font-mono text-sm'>LOGIN</Link>
-                <Link to='/signup' className='bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition font-mono text-sm'>SIGN UP</Link>
+                <motion.div
+                  whileHover={{
+                    y: -2,
+                    scale: 1.05,
+                  }}
+                  whileTap={{
+                    scale: 0.9,
+                  }}
+                  transition={{
+                    type: "spring",
+                    damping: 20,
+                    stiffness: 300,
+                  }}
+                >
+                  <Link
+                    to="/login"
+                    className="text-gray-300 hover:text-white transition px-4 py-2 border border-gray-700 hover:border-purple-500 rounded-lg font-mono text-sm"
+                  >
+                    LOGIN
+                  </Link>
+                </motion.div>
+                <motion.div
+                  whileHover={{
+                    y: -2,
+                    scale: 1.05,
+                  }}
+                  whileTap={{
+                    scale: 0.9,
+                  }}
+                  transition={{
+                    type: "spring",
+                    damping: 20,
+                    stiffness: 300,
+                  }}>
+                  <Link to='/signup' className='bg-linear-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition font-mono text-sm'>SIGN UP</Link>
+
+                </motion.div>
               </>
             )}
           </div>
@@ -79,7 +115,7 @@ const Navbar = () => {
               ) : (
                 <>
                   <Link to='/login' onClick={() => setOpen(false)} className='block text-gray-300 hover:text-white py-2 font-mono text-sm'>LOGIN</Link>
-                  <Link to='/signup' onClick={() => setOpen(false)} className='block bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold px-3 py-2 rounded-lg mt-2 font-mono text-sm'>SIGN UP</Link>
+                  <Link to='/signup' onClick={() => setOpen(false)} className='block bg-linear-to-r from-purple-500 to-blue-500 text-white font-semibold px-3 py-2 rounded-lg mt-2 font-mono text-sm'>SIGN UP</Link>
                 </>
               )}
             </div>
