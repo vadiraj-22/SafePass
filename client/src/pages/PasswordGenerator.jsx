@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 const PasswordGenerator = () => {
   const [generatedPassword, setGeneratedPassword] = useState("");
   const [length, setLength] = useState(48);
+  const [inputValue, setInputValue] = useState("48");
   const [charAllowed, setCharAllowed] = useState(false);
   const [numAllowed, setNumAllowed] = useState(false);
   const [genEntropy, setGenEntropy] = useState(0);
@@ -113,13 +114,16 @@ const PasswordGenerator = () => {
 
   // Password generator
   const PasswordGenerater = useCallback(() => {
+    // Ensure length is within valid bounds
+    const validLength = Math.max(8, Math.min(100, length));
+    
     let pass = "";
     let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
     if (numAllowed) str += "0123456789";
     if (charAllowed) str += "~!@#$%^&*(){}:<>.,?|";
 
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < validLength; i++) {
       let char = getSecureRandom(str.length);
       pass += str.charAt(char);
     }
@@ -138,12 +142,14 @@ const PasswordGenerator = () => {
     const newValue = Number(e.target.value);
     console.log('Slider changed to:', newValue); // Debug log
     setLength(newValue);
+    setInputValue(newValue.toString());
   };
 
   const handleSliderInput = (e) => {
     const newValue = Number(e.target.value);
     console.log('Slider input:', newValue); // Debug log for drag
     setLength(newValue);
+    setInputValue(newValue.toString());
   };
 
   const copyToClipboard = useCallback(() => {
@@ -214,24 +220,49 @@ const PasswordGenerator = () => {
                     type="number"
                     min={8}
                     max={100}
-                    value={length}
+                    value={inputValue}
                     onChange={(e) => {
-                      const inputValue = e.target.value;
-                      // Allow empty input for better UX while typing
-                      if (inputValue === '') {
-                        setLength(8);
-                        return;
+                      const value = e.target.value;
+                      setInputValue(value);
+                      
+                      // If not empty, update length for real-time generation
+                      if (value !== '') {
+                        const numValue = parseInt(value, 10);
+                        if (!isNaN(numValue)) {
+                          setLength(numValue);
+                        }
                       }
-                      const newValue = Math.max(8, Math.min(100, Number(inputValue) || 8));
-                      setLength(newValue);
+                    }}
+                    onFocus={(e) => {
+                      // Clear the input when focused for easy typing
+                      e.target.select();
                     }}
                     onBlur={(e) => {
-                      // Ensure valid value on blur
-                      const newValue = Math.max(8, Math.min(100, Number(e.target.value) || 8));
-                      setLength(newValue);
+                      const value = e.target.value;
+                      
+                      // If empty on blur, set to minimum (8)
+                      if (value === '' || value === null || value === undefined) {
+                        setLength(8);
+                        setInputValue("8");
+                        return;
+                      }
+                      
+                      const numValue = parseInt(value, 10);
+                      
+                      // Apply constraints on blur
+                      if (isNaN(numValue) || numValue < 8) {
+                        setLength(8);
+                        setInputValue("8");
+                      } else if (numValue > 100) {
+                        setLength(100);
+                        setInputValue("100");
+                      } else {
+                        setLength(numValue);
+                        setInputValue(numValue.toString());
+                      }
                     }}
                     className='w-16 bg-gray-800 text-white text-center py-1 px-2 rounded border border-gray-600 focus:border-purple-500 focus:outline-none text-sm font-mono'
-                    placeholder="48"
+                    placeholder="8"
                   />
                   <span className='text-sm font-semibold text-purple-400'>characters</span>
                 </div>
@@ -240,12 +271,12 @@ const PasswordGenerator = () => {
                 type="range"
                 min={8}
                 max={100}
-                value={length}
+                value={Math.max(8, Math.min(100, length))}
                 onChange={handleSliderChange}
                 onInput={handleSliderInput}
                 className='w-full slider transition-all duration-200 hover:opacity-90'
                 style={{
-                  background: `linear-gradient(to right, #a855f7 0%, #a855f7 ${((length - 8) / (100 - 8)) * 100}%, #374151 ${((length - 8) / (100 - 8)) * 100}%, #374151 100%)`,
+                  background: `linear-gradient(to right, #a855f7 0%, #a855f7 ${((Math.max(8, Math.min(100, length)) - 8) / (100 - 8)) * 100}%, #374151 ${((Math.max(8, Math.min(100, length)) - 8) / (100 - 8)) * 100}%, #374151 100%)`,
                   height: '8px',
                   borderRadius: '4px',
                   outline: 'none',
@@ -309,7 +340,7 @@ const PasswordGenerator = () => {
               <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6'>
                 <div className='bg-gray-900 p-4 rounded-lg text-center'>
                   <p className='text-gray-400 text-sm mb-1'>Length</p>
-                  <p className='text-2xl font-bold'>{length}</p>
+                  <p className='text-2xl font-bold'>{Math.max(8, Math.min(100, length))}</p>
                 </div>
                 <div className='bg-gray-900 p-4 rounded-lg text-center'>
                   <p className='text-gray-400 text-sm mb-1'>Unique Chars</p>
