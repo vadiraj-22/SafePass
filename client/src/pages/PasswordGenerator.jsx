@@ -190,7 +190,7 @@ const PasswordGenerator = () => {
               value={generatedPassword}
             />
             <motion.button
-              className={`${copied ? 'bg-green-500' : 'bg-gradient-to-r from-purple-500 to-blue-500'} text-white font-semibold py-3 sm:py-4 px-4 sm:px-8 rounded-lg w-full sm:w-auto font-mono uppercase tracking-wide`}
+              className={`${copied ? 'bg-gradient-to-r from-purple-600 to-blue-600 border-purple-500' : 'bg-gradient-to-r from-purple-500 to-blue-500 border-gray-700 hover:border-purple-500'} border text-white font-semibold py-3 sm:py-4 px-4 sm:px-8 rounded-lg w-full sm:w-auto font-mono uppercase tracking-wide transition-all duration-300 shadow-sm`}
               onClick={copyToClipboard}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

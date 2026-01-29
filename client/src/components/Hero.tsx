@@ -150,7 +150,7 @@ export function Hero() {
               transition={{ duration: 0.2 }}
             >
               <Link to="/password-generator" className="w-full sm:w-auto">
-                <Button variant="default" size="lg" className="font-mono w-full border border-gray-400/30 sm:w-auto">
+                <Button variant="default" size="lg" className="font-mono w-full sm:w-auto">
                   START NOW
                 </Button>
               </Link>

@@ -218,7 +218,7 @@ const PasswordManager = () => {
                         </button>
                         <button 
                           onClick={() => handleCopyPassword(item.password, item._id)}
-                          className={`${copiedId === item._id ? 'bg-green-500' : 'bg-purple-500 hover:bg-purple-600'} text-white font-semibold px-4 py-2 rounded transition`}
+                          className={`${copiedId === item._id ? 'bg-gradient-to-r from-purple-600 to-blue-600 border-purple-500' : 'bg-gradient-to-r from-purple-500 to-blue-500 border-gray-700 hover:border-purple-500'} border text-white font-semibold px-4 py-2 rounded transition-all duration-300 shadow-sm`}
                           title='Copy Password'
                         >
                           {copiedId === item._id ? '✓' : '📋'}
