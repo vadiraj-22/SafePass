@@ -9,7 +9,7 @@ const Footer = () => {
           <div className='flex items-center gap-3'>
             <Link to='/' className='flex items-center gap-2'>
               <img src="/favicon_2.png" className='h-12 w-12' alt="SafePass Logo" />
-              <span className='text-2xl font-bold bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent cybersec-title'>
+              <span className='text-2xl font-bold text-white cybersec-title'>
                 SafePass
               </span>
             </Link>
@@ -22,11 +22,11 @@ const Footer = () => {
           
           {/* Navigation Links */}
           <div className='flex flex-wrap justify-center gap-8 text-sm text-gray-400'>
-            <Link to="/" className='hover:text-purple-400 transition-colors font-mono'>HOME</Link>
-            <Link to="/features" className='hover:text-purple-400 transition-colors font-mono'>FEATURES</Link>
-            <Link to="/password-generator" className='hover:text-purple-400 transition-colors font-mono'>GENERATOR</Link>
-            <Link to="/breach-checker" className='hover:text-purple-400 transition-colors font-mono'>BREACH CHECKER</Link>
-            <Link to="/password-manager" className='hover:text-purple-400 transition-colors font-mono'>VAULT</Link>
+            <Link to="/" className='hover:text-purple-300 transition-colors font-mono'>HOME</Link>
+            <Link to="/features" className='hover:text-purple-300 transition-colors font-mono'>FEATURES</Link>
+            <Link to="/password-generator" className='hover:text-purple-300 transition-colors font-mono'>GENERATOR</Link>
+            <Link to="/breach-checker" className='hover:text-purple-300 transition-colors font-mono'>BREACH CHECKER</Link>
+            <Link to="/password-manager" className='hover:text-purple-300 transition-colors font-mono'>VAULT</Link>
           </div>
           
           {/* Security Features */}
@@ -57,9 +57,9 @@ const Footer = () => {
              &copy; {new Date().getFullYear()} SafePass. All rights reserved. Built with security in mind.
             </p>
             <div className='flex gap-6 text-xs text-gray-500'>
-              <a href="#privacy" className='hover:text-purple-400 transition-colors font-mono'>PRIVACY POLICY</a>
-              <a href="#terms" className='hover:text-purple-400 transition-colors font-mono'>TERMS OF SERVICE</a>
-              <a href="#security" className='hover:text-purple-400 transition-colors font-mono'>SECURITY</a>
+              <a href="#privacy" className='hover:text-purple-300 transition-colors font-mono'>PRIVACY POLICY</a>
+              <a href="#terms" className='hover:text-purple-300 transition-colors font-mono'>TERMS OF SERVICE</a>
+              <a href="#security" className='hover:text-purple-300 transition-colors font-mono'>SECURITY</a>
             </div>
           </div>
         </div>

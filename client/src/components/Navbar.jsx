@@ -90,7 +90,7 @@ const Navbar = () => {
               <motion.div key={link.to} variants={navLinkVariants} initial="rest" whileHover="hover" whileTap="tap">
                 <Link 
                   to={link.to} 
-                  className={`text-gray-300 hover:text-purple-400 transition font-mono text-sm relative ${
+                  className={`text-gray-300 hover:text-purple-300 transition font-mono text-sm relative ${
                     isActiveLink(link.to) ? 'text-purple-400' : ''
                   }`}
                 >
@@ -111,7 +111,7 @@ const Navbar = () => {
               <motion.div variants={navLinkVariants} initial="rest" whileHover="hover" whileTap="tap">
                 <Link 
                   to='/password-manager' 
-                  className={`text-gray-300 hover:text-purple-400 transition font-mono text-sm relative ${
+                  className={`text-gray-300 hover:text-purple-300 transition font-mono text-sm relative ${
                     isActiveLink('/password-manager') ? 'text-purple-400' : ''
                   }`}
                 >
@@ -172,7 +172,7 @@ const Navbar = () => {
                   whileHover="hover"
                   whileTap="tap"
                 >
-                  <Link to='/signup' className='bg-gradient-to-r from-purple-500 to-blue-500 hover:from-gray-400 border border-purple-600 hover:to-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition font-mono text-sm'>
+                  <Link to='/signup' className='bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold px-4 py-2 rounded-lg transition font-mono text-sm'>
                     SIGN UP
                   </Link>
                 </motion.div>
@@ -242,7 +242,7 @@ const Navbar = () => {
               <Link 
                 to={link.to} 
                 onClick={() => setOpen(false)} 
-                className={`block text-gray-300 hover:text-purple-400 py-2 font-mono text-sm ${
+                className={`block text-gray-300 hover:text-purple-300 py-2 font-mono text-sm ${
                   isActiveLink(link.to) ? 'text-purple-400' : ''
                 }`}
               >
@@ -264,7 +264,7 @@ const Navbar = () => {
               <Link 
                 to='/password-manager' 
                 onClick={() => setOpen(false)} 
-                className={`block text-gray-300 hover:text-purple-400 py-2 font-mono text-sm ${
+                className={`block text-gray-300 hover:text-purple-300 py-2 font-mono text-sm ${
                   isActiveLink('/password-manager') ? 'text-purple-400' : ''
                 }`}
               >
@@ -307,7 +307,7 @@ const Navbar = () => {
                 <Link 
                   to='/signup' 
                   onClick={() => setOpen(false)} 
-                  className='block bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold px-3 py-2 rounded-lg mt-2 font-mono text-sm'
+                  className='block bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold px-3 py-2 rounded-lg mt-2 font-mono text-sm'
                 >
                   SIGN UP
                 </Link>
