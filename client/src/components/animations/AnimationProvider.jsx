@@ -12,7 +12,7 @@ export const globalVariants = {
     exit: { opacity: 0, y: -20 },
     transition: { duration: 0.3, ease: "easeOut" }
   },
-  
+
   staggerContainer: {
     animate: {
       transition: {
@@ -21,9 +21,9 @@ export const globalVariants = {
       }
     }
   },
-  
+
   staggerItem: {
-    initial: { opacity: 0, y: 30 },
+    initial: { opacity: 0, y: 20 }, // Reduced from 30 for better mobile performance
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.4, ease: "easeOut" }
   },
@@ -31,20 +31,20 @@ export const globalVariants = {
   // Interactive variants for buttons and form elements
   button: {
     rest: { scale: 1, boxShadow: "0 0 0 rgba(139, 92, 246, 0)" },
-    hover: { 
-      scale: 1.05, 
+    hover: {
+      scale: 1.05,
       boxShadow: "0 0 20px rgba(139, 92, 246, 0.3)",
       transition: { duration: 0.2 }
     },
     tap: { scale: 0.95 }
   },
-  
+
   formField: {
-    unfocused: { 
+    unfocused: {
       borderColor: "rgba(139, 92, 246, 0.2)",
       boxShadow: "0 0 0 rgba(139, 92, 246, 0)"
     },
-    focused: { 
+    focused: {
       borderColor: "rgba(139, 92, 246, 1)",
       boxShadow: "0 0 10px rgba(139, 92, 246, 0.2)",
       transition: { duration: 0.2 }
@@ -68,34 +68,34 @@ const accessibilitySettings = {
   announceStateChanges: true
 };
 
-export const AnimationProvider = ({ 
-  children, 
+export const AnimationProvider = ({
+  children,
   performanceMode = 'balanced' // 'high' | 'balanced' | 'low'
 }) => {
   const reducedMotion = useReducedMotion();
-  
+
   const animationSettings = useMemo(() => ({
     // Motion preferences
     reducedMotion,
-    
+
     // Performance settings
     performanceMode,
     ...performanceSettings,
-    
+
     // Accessibility settings
     ...accessibilitySettings,
-    
+
     // Global variants
     variants: globalVariants,
-    
+
     // Timing settings based on reduced motion preference
     duration: reducedMotion ? accessibilitySettings.fallbackDuration : 0.3,
     ease: "easeOut",
-    
+
     // Helper function to get animation variant based on reduced motion
-    getAnimationVariant: (fullAnimation, reducedAnimation = { opacity: 1 }) => 
+    getAnimationVariant: (fullAnimation, reducedAnimation = { opacity: 1 }) =>
       reducedMotion ? reducedAnimation : fullAnimation,
-    
+
     // Helper function for smooth scroll configuration
     smoothScrollConfig: {
       behavior: 'smooth',
@@ -103,7 +103,7 @@ export const AnimationProvider = ({
       inline: 'nearest'
     }
   }), [reducedMotion, performanceMode]);
-  
+
   return (
     <AnimationContext.Provider value={animationSettings}>
       {children}

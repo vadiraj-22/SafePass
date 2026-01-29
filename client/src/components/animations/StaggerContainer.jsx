@@ -14,8 +14,8 @@ export const StaggerContainer = ({
   const ref = useRef(null);
   const isInView = useInView(ref, { 
     once, 
-    margin: "-100px",
-    amount: 0.3 
+    margin: "-20px", // Reduced from -100px for better mobile support
+    amount: 0.1 // Reduced from 0.3 to trigger earlier on mobile
   });
 
   // Use global stagger variants or create custom ones

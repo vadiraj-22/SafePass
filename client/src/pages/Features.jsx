@@ -35,12 +35,12 @@ const Features = () => {
         id="canvas"
         style={{ height: '100vh', minHeight: '100vh' }}
       ></canvas>
-      
+
       {/* All content with proper z-index */}
       <div className="relative z-10">
         <div className='max-w-7xl mx-auto'>
           <div className='text-center mb-16'>
-            <motion.h1 
+            <motion.h1
               className='text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent cybersec-title'
               variants={getAnimationVariant(featuresVariants.title, { initial: { opacity: 0 }, animate: { opacity: 1 } })}
               initial="initial"
@@ -48,7 +48,7 @@ const Features = () => {
             >
               ALL FEATURES
             </motion.h1>
-            <motion.p 
+            <motion.p
               className='text-gray-400 text-lg font-mono'
               variants={getAnimationVariant(featuresVariants.subtitle, { initial: { opacity: 0 }, animate: { opacity: 1 } })}
               initial="initial"
@@ -58,32 +58,32 @@ const Features = () => {
             </motion.p>
           </div>
 
-          <StaggerContainer 
+          <StaggerContainer
             className='grid grid-cols-1 md:grid-cols-3 gap-8'
-            staggerDelay={0.2}
+            staggerDelay={0.1}
             viewport={true}
             once={true}
           >
             <StaggerItem>
-              <FeatureCard 
+              <FeatureCard
                 icon="🔍"
                 title="Data Breach Checker"
                 description="Instantly check if your password has been compromised in known data breaches using the Have I Been Pwned database."
                 link="/breach-checker"
               />
             </StaggerItem>
-            
+
             <StaggerItem>
-              <FeatureCard 
+              <FeatureCard
                 icon="⚡"
                 title="Password Generator"
                 description="Generate cryptographically secure random passwords with customizable length and character types."
                 link="/password-generator"
               />
             </StaggerItem>
-            
+
             <StaggerItem>
-              <FeatureCard 
+              <FeatureCard
                 icon="🗄️"
                 title="Password Manager"
                 description="Securely store and manage all your passwords with MongoDB backend and JWT authentication."
@@ -93,7 +93,7 @@ const Features = () => {
           </StaggerContainer>
 
           {/* Additional features section with smooth scroll anchor */}
-          <motion.div 
+          <motion.div
             id="security-features"
             className="mt-20 text-center"
             initial={{ opacity: 0, y: 50 }}

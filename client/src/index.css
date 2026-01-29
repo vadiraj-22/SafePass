@@ -439,6 +439,13 @@ footer {
     padding-top: 10rem !important;
     padding-bottom: 6rem !important;
   }
+  
+  /* CRITICAL FIX: Ensure feature cards are always visible on mobile */
+  /* This overrides Framer Motion's initial animation state */
+  .grid > div {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
 }
 
 /* Medium screens adjustments */
