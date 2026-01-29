@@ -345,6 +345,13 @@ canvas#canvas {
   z-index: 0;
 }
 
+/* Hide canvas on mobile devices to prevent white screen flashing */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  canvas#canvas {
+    display: none !important;
+  }
+}
+
 /* Ensure all content is above canvas */
 .relative {
   position: relative;

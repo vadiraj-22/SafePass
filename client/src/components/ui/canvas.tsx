@@ -229,6 +229,17 @@ export const renderCanvas = function () {
   ctx = canvas.getContext("2d");
   if (!ctx) return;
   
+  // Check if device is mobile to disable cursor following effect
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                   window.innerWidth <= 768 || 
+                   ('ontouchstart' in window);
+  
+  // If mobile, hide canvas and return early to prevent cursor following effect
+  if (isMobile) {
+    canvas.style.display = 'none';
+    return;
+  }
+  
   // Prevent multiple initializations
   if (ctx.running) {
     // If already running, just resize and continue
