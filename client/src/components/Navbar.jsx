@@ -161,7 +161,7 @@ const Navbar = () => {
                 >
                   <Link
                     to="/login"
-                    className="text-gray-300 hover:text-white transition px-4 py-2 border border-gray-700 hover:border-purple-500 rounded-lg font-mono text-sm"
+                    className="text-gray-300 hover:text-white transition px-4 py-2 border border-gray-400/30 hover:border-purple-500 rounded-lg font-mono text-sm"
                   >
                     LOGIN
                   </Link>
@@ -172,7 +172,7 @@ const Navbar = () => {
                   whileHover="hover"
                   whileTap="tap"
                 >
-                  <Link to='/signup' className='bg-linear-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition font-mono text-sm'>
+                  <Link to='/signup' className='bg-linear-to-r from-purple-500 to-blue-500 hover:from-gray-400 border border-purple-600 hover:to-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition font-mono text-sm'>
                     SIGN UP
                   </Link>
                 </motion.div>

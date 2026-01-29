@@ -2,9 +2,9 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 const PasswordGenerator = () => {
   const [generatedPassword, setGeneratedPassword] = useState("");
-  const [length, setLength] = useState(16);
-  const [charAllowed, setCharAllowed] = useState(true);
-  const [numAllowed, setNumAllowed] = useState(true);
+  const [length, setLength] = useState(48);
+  const [charAllowed, setCharAllowed] = useState(false);
+  const [numAllowed, setNumAllowed] = useState(false);
   const [genEntropy, setGenEntropy] = useState(0);
   const [genStrength, setGenStrength] = useState("Weak");
   const [genLeakedStatus, setGenLeakedStatus] = useState(null);
@@ -207,11 +207,34 @@ const PasswordGenerator = () => {
           {/* Controls */}
           <div className='mb-8 space-y-6'>
             <div>
-              <div className='flex justify-between mb-3'>
+              <div className='flex justify-between items-center mb-3'>
                 <label className='text-sm font-semibold'>Password Length</label>
-                <span className='text-sm font-semibold text-purple-400'>
-                  {length} characters
-                </span>
+                <div className='flex items-center gap-3'>
+                  <input
+                    type="number"
+                    min={8}
+                    max={100}
+                    value={length}
+                    onChange={(e) => {
+                      const inputValue = e.target.value;
+                      // Allow empty input for better UX while typing
+                      if (inputValue === '') {
+                        setLength(8);
+                        return;
+                      }
+                      const newValue = Math.max(8, Math.min(100, Number(inputValue) || 8));
+                      setLength(newValue);
+                    }}
+                    onBlur={(e) => {
+                      // Ensure valid value on blur
+                      const newValue = Math.max(8, Math.min(100, Number(e.target.value) || 8));
+                      setLength(newValue);
+                    }}
+                    className='w-16 bg-gray-800 text-white text-center py-1 px-2 rounded border border-gray-600 focus:border-purple-500 focus:outline-none text-sm font-mono'
+                    placeholder="48"
+                  />
+                  <span className='text-sm font-semibold text-purple-400'>characters</span>
+                </div>
               </div>
               <input
                 type="range"
@@ -220,12 +243,14 @@ const PasswordGenerator = () => {
                 value={length}
                 onChange={handleSliderChange}
                 onInput={handleSliderInput}
-                className='w-full'
+                className='w-full slider transition-all duration-200 hover:opacity-90'
                 style={{
                   background: `linear-gradient(to right, #a855f7 0%, #a855f7 ${((length - 8) / (100 - 8)) * 100}%, #374151 ${((length - 8) / (100 - 8)) * 100}%, #374151 100%)`,
                   height: '8px',
                   borderRadius: '4px',
-                  outline: 'none'
+                  outline: 'none',
+                  appearance: 'none',
+                  cursor: 'pointer'
                 }}
               />
               <div className='flex justify-between text-xs text-gray-500 mt-2'>
