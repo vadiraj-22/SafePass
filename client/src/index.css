@@ -1,9 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 /* Add this to your index.css file, below the @import "tailwindcss"; */
 
+/* Prevent horizontal scrollbar */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* Ensure all containers respect viewport width */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Prevent any element from extending beyond viewport */
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Global smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  /* Disable all animations for users who prefer reduced motion */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* Set cybersecurity-themed fonts */
 body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Heading fonts - curvy and modern */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+}
+
+.font-heading {
+  font-family: 'Poppins', sans-serif;
+}
+
+.font-body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
@@ -12,9 +66,21 @@ body {
 }
 
 .cybersec-title {
-  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: 'Poppins', sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
+}
+
+/* Hero section specific styling */
+.hero-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.hero-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
 }
 
 .bg-security-gradient {
@@ -251,7 +317,7 @@ canvas {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
 }
 
@@ -260,7 +326,7 @@ canvas#canvas {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   pointer-events: none;
   z-index: 0;

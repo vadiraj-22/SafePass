@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-
+import { motion, AnimatePresence } from 'motion/react';
 const PasswordGenerator = () => {
   const [generatedPassword, setGeneratedPassword] = useState("");
   const [length, setLength] = useState(16);
@@ -79,10 +79,10 @@ const PasswordGenerator = () => {
       const encoder = new TextEncoder();
       const data = encoder.encode(pwd);
       const hashBuffer = await crypto.subtle.digest("SHA-1", data);
-      
+
       const hashArray = Array.from(new Uint8Array(hashBuffer));
       const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
-      
+
       const firstFive = hashHex.substring(0, 5);
       const remaining = hashHex.substring(5);
 
@@ -124,7 +124,7 @@ const PasswordGenerator = () => {
       pass += str.charAt(char);
     }
     setGeneratedPassword(pass);
-    
+
     const entropyValue = calculateEntropy(pass);
     setGenEntropy(entropyValue);
     const strengthLevel = getStrengthLevel(entropyValue);
@@ -159,11 +159,11 @@ const PasswordGenerator = () => {
 
   return (
     <div className='relative bg-black text-white min-h-screen pt-24 pb-16 px-6'>
-     
+
       <div className='max-w-4xl mx-auto'>
         <div className='text-center mb-12'>
           <h1 className='md:text-5xl text-4xl  font-bold my-4 cybersec-title'>
-           
+
             <span className='bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent'>
               Random Password Generator
             </span>
@@ -176,19 +176,32 @@ const PasswordGenerator = () => {
         <div className='bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8'>
           {/* Generated Password Display */}
           <div className='flex flex-col sm:flex-row gap-3 mb-8'>
-            <input 
+            <input
               type="text"
               className='flex-1 min-w-0 bg-gray-900 text-white py-3 sm:py-4 rounded-lg px-3 sm:px-4 border border-gray-700 font-mono text-base sm:text-lg overflow-x-auto'
               readOnly
               ref={generatedPasswordRef}
               value={generatedPassword}
             />
-            <button 
-              className={`${copied ? 'bg-green-500' : 'bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600'} text-white font-semibold py-3 sm:py-4 px-4 sm:px-8 rounded-lg transition-all duration-300 w-full sm:w-auto font-mono uppercase tracking-wide hover:scale-105`}
+            <motion.button
+              className={`${copied ? 'bg-green-500' : 'bg-gradient-to-r from-purple-500 to-blue-500'} text-white font-semibold py-3 sm:py-4 px-4 sm:px-8 rounded-lg w-full sm:w-auto font-mono uppercase tracking-wide`}
               onClick={copyToClipboard}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              animate={copied ? { scale: [1, 1.1, 1] } : {}}
+              transition={{ duration: 0.2 }}
             >
-              {copied ? '✓ Copied!' : '📋 Copy'}
-            </button>
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={copied ? 'copied' : 'copy'}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                >
+                  {copied ? '✓ Copied!' : '📋 Copy'}
+                </motion.span>
+              </AnimatePresence>
+            </motion.button>
           </div>
 
           {/* Controls */}
@@ -200,7 +213,7 @@ const PasswordGenerator = () => {
                   {length} characters
                 </span>
               </div>
-              <input 
+              <input
                 type="range"
                 min={8}
                 max={100}
@@ -223,7 +236,7 @@ const PasswordGenerator = () => {
 
             <div className='flex flex-col sm:flex-row gap-6'>
               <label className='flex items-center gap-3 cursor-pointer bg-gray-900 px-4 py-3 rounded-lg flex-1'>
-                <input 
+                <input
                   type="checkbox"
                   checked={numAllowed}
                   onChange={() => setNumAllowed(!numAllowed)}
@@ -232,7 +245,7 @@ const PasswordGenerator = () => {
                 <span className='text-sm font-medium'>Include Numbers (0-9)</span>
               </label>
               <label className='flex items-center gap-3 cursor-pointer bg-gray-900 px-4 py-3 rounded-lg flex-1'>
-                <input 
+                <input
                   type="checkbox"
                   checked={charAllowed}
                   onChange={() => setCharAllowed(!charAllowed)}
@@ -249,17 +262,22 @@ const PasswordGenerator = () => {
               <div className='bg-gray-900 p-6 rounded-lg mb-6'>
                 <div className='flex justify-between mb-3'>
                   <span className='text-sm font-semibold'>Password Strength</span>
-                  <span className={`text-sm font-bold ${
-                    genStrength === "Weak" ? "text-red-500" :
+                  <span className={`text-sm font-bold ${genStrength === "Weak" ? "text-red-500" :
                     genStrength === "Medium" ? "text-yellow-500" :
-                    genStrength === "Strong" ? "text-blue-500" :
-                    "text-green-500"
-                  }`}>{genStrength}</span>
+                      genStrength === "Strong" ? "text-blue-500" :
+                        "text-green-500"
+                    }`}>{genStrength}</span>
                 </div>
-                <div className='w-full bg-gray-700 rounded-full h-4 overflow-hidden'>
-                  <div className={`h-full transition-all ${getStrengthColor(genStrength)}`}
-                    style={{width: `${Math.min((genEntropy / 100) * 100, 100)}%`}}></div>
-                </div>
+                <motion.div
+                  className='w-full bg-gray-700 rounded-full h-4 overflow-hidden'
+                >
+                  <motion.div
+                    className={`h-full ${getStrengthColor(genStrength)}`}
+                    initial={{ width: 0 }}
+                    animate={{ width: `${Math.min((genEntropy / 100) * 100, 100)}%` }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                  />
+                </motion.div>
               </div>
 
               {/* Metrics */}

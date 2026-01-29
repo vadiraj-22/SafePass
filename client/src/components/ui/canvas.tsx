@@ -167,7 +167,7 @@ function resizeCanvas() {
   // @ts-ignore
   if (ctx && ctx.canvas) {
     // @ts-ignore
-    ctx.canvas.width = window.innerWidth;
+    ctx.canvas.width = document.documentElement.clientWidth;
     
     // Calculate the maximum height needed to cover all content
     const body = document.body;
