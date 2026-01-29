@@ -73,7 +73,7 @@ const Navbar = () => {
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.6, ease: "easeInOut" }}
               />
-              <span className='font-heading text-xl sm:text-2xl font-bold bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent'>
+              <span className='font-heading text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent'>
                 SafePass
               </span>
             </Link>
@@ -172,7 +172,7 @@ const Navbar = () => {
                   whileHover="hover"
                   whileTap="tap"
                 >
-                  <Link to='/signup' className='bg-linear-to-r from-purple-500 to-blue-500 hover:from-gray-400 border border-purple-600 hover:to-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition font-mono text-sm'>
+                  <Link to='/signup' className='bg-gradient-to-r from-purple-500 to-blue-500 hover:from-gray-400 border border-purple-600 hover:to-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition font-mono text-sm'>
                     SIGN UP
                   </Link>
                 </motion.div>
@@ -307,7 +307,7 @@ const Navbar = () => {
                 <Link 
                   to='/signup' 
                   onClick={() => setOpen(false)} 
-                  className='block bg-linear-to-r from-purple-500 to-blue-500 text-white font-semibold px-3 py-2 rounded-lg mt-2 font-mono text-sm'
+                  className='block bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold px-3 py-2 rounded-lg mt-2 font-mono text-sm'
                 >
                   SIGN UP
                 </Link>

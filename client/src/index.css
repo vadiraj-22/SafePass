@@ -1,5 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Force dark background for testing */
+body {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* Test Tailwind is working */
+.test-tailwind {
+  @apply bg-purple-500 text-white p-4 rounded-lg;
+}
 
 /* Add this to your index.css file, below the @import "tailwindcss"; */
 

@@ -95,7 +95,7 @@ export function Hero() {
               />
 
               <motion.h1 
-                className="hero-title select-none px-2 md:px-3 py-2 text-center text-xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight tracking-tight bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent"
+                className="hero-title select-none px-2 md:px-3 py-2 text-center text-xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight tracking-tight bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent"
                 variants={heroVariants.title}
                 initial="initial"
                 animate="animate"
@@ -125,7 +125,7 @@ export function Hero() {
             animate="animate"
           >
             Welcome to your security playground! We're{" "}
-            <span className="bg-linear-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent font-bold hero-title">SafePass</span>
+            <span className="bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent font-bold hero-title">SafePass</span>
           </motion.h2>
           
           <motion.p 

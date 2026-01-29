@@ -24,25 +24,23 @@ const AppContent = () => {
       <Navbar />
       
       <main className='flex-1'>
-        <PageTransition transitionKey={location.pathname} variant="fade">
-          <Routes location={location}>
-            <Route path="/" element={<Home />} />
-            <Route path="/features" element={<Features />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/breach-checker" element={<BreachAndStrengthChecker />} />
-            <Route path="/password-generator" element={<PasswordGenerator />} />
-            <Route 
-              path="/password-manager" 
-              element={
-                <ProtectedRoute>
-                  <PasswordManager />
-                </ProtectedRoute>
-              } 
-            />
-          </Routes>
-        </PageTransition>
+        <Routes location={location}>
+          <Route path="/" element={<Home />} />
+          <Route path="/features" element={<Features />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/breach-checker" element={<BreachAndStrengthChecker />} />
+          <Route path="/password-generator" element={<PasswordGenerator />} />
+          <Route 
+            path="/password-manager" 
+            element={
+              <ProtectedRoute>
+                <PasswordManager />
+              </ProtectedRoute>
+            } 
+          />
+        </Routes>
       </main>
 
       <Footer />
