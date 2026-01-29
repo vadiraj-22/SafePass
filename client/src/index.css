@@ -352,6 +352,19 @@ canvas#canvas {
   }
 }
 
+/* Fallback: ensure content is visible even if canvas fails */
+.relative.z-10 {
+  min-height: 100vh;
+  background: transparent;
+}
+
+/* Ensure content is always visible above canvas */
+main {
+  position: relative;
+  z-index: 10;
+  background: transparent;
+}
+
 /* Ensure all content is above canvas */
 .relative {
   position: relative;

@@ -24,12 +24,12 @@ class Wave {
 
   update() {
     this.phase += this.frequency;
-    e = this.offset + Math.sin(this.phase) * this.amplitude;
-    return e;
+    const value = this.offset + Math.sin(this.phase) * this.amplitude;
+    return value;
   }
 
   value() {
-    return e;
+    return this.offset + Math.sin(this.phase) * this.amplitude;
   }
 }
 
@@ -221,95 +221,103 @@ class Node {
 }
 
 export const renderCanvas = function () {
-  // @ts-ignore
-  const canvas = document.getElementById("canvas");
-  if (!canvas) return;
-  
-  // @ts-ignore
-  ctx = canvas.getContext("2d");
-  if (!ctx) return;
-  
-  // Check if device is mobile to disable cursor following effect
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
-                   window.innerWidth <= 768 || 
-                   ('ontouchstart' in window);
-  
-  // If mobile, hide canvas and return early to prevent cursor following effect
-  if (isMobile) {
-    canvas.style.display = 'none';
-    return;
-  }
-  
-  // Prevent multiple initializations
-  if (ctx.running) {
-    // If already running, just resize and continue
-    resizeCanvas();
-    return;
-  }
-  
-  ctx.running = true;
-  ctx.frame = 1;
-  f = new Wave({
-    phase: Math.random() * 2 * Math.PI,
-    amplitude: 85,
-    frequency: 0.0015,
-    offset: 285,
-  });
-  
-  // Remove existing listeners to prevent duplicates
-  document.removeEventListener("mousemove", onMousemove);
-  document.removeEventListener("touchstart", onMousemove);
-  
-  document.addEventListener("mousemove", onMousemove);
-  document.addEventListener("touchstart", onMousemove);
-  document.body.addEventListener("orientationchange", resizeCanvas);
-  window.addEventListener("resize", resizeCanvas);
-  
-  // Add scroll listener to update canvas height
-  window.addEventListener("scroll", resizeCanvas);
-  
-  // Add resize observer to watch for content changes
-  if (window.ResizeObserver) {
-    const resizeObserver = new ResizeObserver(() => {
-      setTimeout(resizeCanvas, 50); // Small delay to ensure DOM is updated
-    });
-    resizeObserver.observe(document.body);
-    resizeObserver.observe(document.documentElement);
-  }
-  
-  // Add mutation observer to watch for DOM changes
-  if (window.MutationObserver) {
-    const mutationObserver = new MutationObserver(() => {
-      setTimeout(resizeCanvas, 100); // Delay to ensure layout is complete
-    });
-    mutationObserver.observe(document.body, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['style', 'class']
-    });
-  }
-  
-  window.addEventListener("focus", () => {
+  try {
     // @ts-ignore
-    if (!ctx.running) {
+    const canvas = document.getElementById("canvas");
+    if (!canvas) return;
+    
+    // @ts-ignore
+    ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    
+    // Check if device is mobile to disable cursor following effect
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // If mobile, reduce canvas opacity but don't hide completely
+    if (isMobile) {
+      canvas.style.opacity = '0.3';
+    } else {
+      canvas.style.opacity = '1';
+    }
+    
+    // Prevent multiple initializations
+    if (ctx.running) {
+      // If already running, just resize and continue
+      resizeCanvas();
+      return;
+    }
+    
+    ctx.running = true;
+    ctx.frame = 1;
+    f = new Wave({
+      phase: Math.random() * 2 * Math.PI,
+      amplitude: 85,
+      frequency: 0.0015,
+      offset: 285,
+    });
+    
+    // Remove existing listeners to prevent duplicates
+    document.removeEventListener("mousemove", onMousemove);
+    document.removeEventListener("touchstart", onMousemove);
+    
+    document.addEventListener("mousemove", onMousemove);
+    document.addEventListener("touchstart", onMousemove);
+    document.body.addEventListener("orientationchange", resizeCanvas);
+    window.addEventListener("resize", resizeCanvas);
+    
+    // Add scroll listener to update canvas height
+    window.addEventListener("scroll", resizeCanvas);
+    
+    // Add resize observer to watch for content changes
+    if (window.ResizeObserver) {
+      const resizeObserver = new ResizeObserver(() => {
+        setTimeout(resizeCanvas, 50); // Small delay to ensure DOM is updated
+      });
+      resizeObserver.observe(document.body);
+      resizeObserver.observe(document.documentElement);
+    }
+    
+    // Add mutation observer to watch for DOM changes
+    if (window.MutationObserver) {
+      const mutationObserver = new MutationObserver(() => {
+        setTimeout(resizeCanvas, 100); // Delay to ensure layout is complete
+      });
+      mutationObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['style', 'class']
+      });
+    }
+    
+    window.addEventListener("focus", () => {
+      // @ts-ignore
+      if (!ctx.running) {
+        // @ts-ignore
+        ctx.running = true;
+        render();
+      }
+    });
+    window.addEventListener("blur", () => {
       // @ts-ignore
       ctx.running = true;
-      render();
+    });
+    
+    // Initial resize
+    resizeCanvas();
+    
+    // Resize again after delays to ensure all content is loaded
+    setTimeout(resizeCanvas, 100);
+    setTimeout(resizeCanvas, 500);
+    setTimeout(resizeCanvas, 1000);
+  } catch (error) {
+    console.warn('Canvas animation failed to initialize:', error);
+    // Ensure content is still visible even if canvas fails
+    const canvas = document.getElementById("canvas");
+    if (canvas) {
+      canvas.style.display = 'none';
     }
-  });
-  window.addEventListener("blur", () => {
-    // @ts-ignore
-    ctx.running = true;
-  });
-  
-  // Initial resize
-  resizeCanvas();
-  
-  // Resize again after delays to ensure all content is loaded
-  setTimeout(resizeCanvas, 100);
-  setTimeout(resizeCanvas, 500);
-  setTimeout(resizeCanvas, 1000);
+  }
 };
 
 // Export function to manually trigger canvas resize
