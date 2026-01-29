@@ -196,7 +196,6 @@ function resizeCanvas() {
 
 var ctx: any,
   f: Wave,
-  e = 0,
   pos: Position = { x: 0, y: 0 },
   lines: Line[] = [],
   E = {
