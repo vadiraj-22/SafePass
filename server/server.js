@@ -4,6 +4,12 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.js';
 import passwordRoutes from './routes/passwords.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 dotenv.config();
 
@@ -22,6 +28,17 @@ app.use('/api/passwords', passwordRoutes);
 app.get('/api/health', (req, res) => {
   res.json({ status: 'Server is running', timestamp: new Date() });
 });
+
+// Serve static files from the React app in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+
+  // The "catchall" handler: for any request that doesn't
+  // match one above, send back React's index.html file.
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
+  });
+}
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI)
