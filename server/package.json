@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "generate-key": "node utils/generateKey.js",
+    "migrate-passwords": "node utils/migratePasswords.js"
   },
   "keywords": [],
   "author": "",
