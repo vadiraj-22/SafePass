@@ -161,7 +161,7 @@ const BreachAndStrengthChecker = () => {
               </div>
 
               {/* Metrics */}
-              <div className='grid grid-cols-3 gap-4 mb-6'>
+              <div className=' grid md:grid-cols-3 gap-4 mb-6'>
                 <div className='bg-gray-900 p-4 rounded-lg text-center'>
                   <p className='text-gray-400 text-sm mb-1'>Length</p>
                   <p className='text-2xl font-bold'>{inputPassword.length}</p>
