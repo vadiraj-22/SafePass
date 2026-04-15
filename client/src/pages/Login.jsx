@@ -7,6 +7,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [slowMessage, setSlowMessage] = useState('');
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -17,9 +18,17 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSlowMessage('');
     setLoading(true);
 
+    // After 5s, hint that the server is cold-starting
+    const slowTimer = setTimeout(() => {
+      setSlowMessage('Waking up the server, this may take up to 30 seconds on first login...');
+    }, 5000);
+
     const result = await login(email, password);
+    clearTimeout(slowTimer);
+    setSlowMessage('');
 
     if (result.success) {
       navigate(from, { replace: true });
@@ -49,6 +58,13 @@ const Login = () => {
             {error && (
               <div className='bg-red-500/20 border border-red-500 rounded-lg p-3 text-red-400 text-sm'>
                 {error}
+              </div>
+            )}
+
+            {slowMessage && (
+              <div className='bg-yellow-500/10 border border-yellow-500/40 rounded-lg p-3 text-yellow-400 text-sm flex items-center gap-2'>
+                <span className='animate-spin text-base'>⏳</span>
+                {slowMessage}
               </div>
             )}
 
