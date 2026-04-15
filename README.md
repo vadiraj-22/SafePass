@@ -489,7 +489,7 @@ copies or substantial portions of the Software.
 
 **[Try it Now →](https://safepass-ewqi.onrender.com/)**
 
-Made with ❤️ and ☕ by the SafePass Tea
+Made with ❤️ and ☕ by Vadiraj Joshi
 
 ⭐ Star this repo if you find it helpful!
 
