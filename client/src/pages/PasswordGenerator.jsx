@@ -209,7 +209,7 @@ const PasswordGenerator = () => {
     <div className='relative bg-black text-white min-h-screen pt-24 pb-16 px-6'>
       <div className='max-w-4xl mx-auto'>
         {/* Editorial header */}
-        <div className='mb-10'>
+        <div className='my-5'>
           <motion.p
             className='text-[var(--text-muted)] text-xs uppercase tracking-[0.2em] mb-3'
             initial={{ opacity: 0 }}

@@ -91,9 +91,9 @@ const Home = () => {
           >
             <div className="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-10 items-start">
               <div className="md:col-span-2">
-                <div className="relative">
-                  <span className="absolute -top-6 -left-1 text-[80px] leading-none text-[var(--clr-violet)]/10 font-sans select-none pointer-events-none" aria-hidden="true">&ldquo;</span>
-                  <h2 className="font-display text-2xl md:text-3xl text-white leading-tight relative z-10">
+                <div className="relative pl-3 md:pl-4">
+                  <span className="absolute top-0 left-0 text-[30px] md:text-[28px] leading-none text-white font-serif select-none pointer-events-none" aria-hidden="true">"</span>
+                  <h2 className="font-display text-2xl md:text-3xl text-white leading-tight">
                     Security<br/>
                     <span className="text-[var(--text-secondary)]">without</span><br/>
                     compromise.

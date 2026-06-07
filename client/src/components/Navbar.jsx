@@ -31,7 +31,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="fixed top-5 left-0 right-0 z-50 flex justify-center pointer-events-none px-4">
+    <div className="fixed top-5 left-0 right-0 z-50 flex justify-center  pointer-events-none px-4">
       <motion.div
         className="pointer-events-auto relative w-full max-w-3xl"
         layout
@@ -69,7 +69,7 @@ const Navbar = () => {
           transition={{ type: 'spring', stiffness: 340, damping: 36 }}
         >
           {/* ── Main pill row ── */}
-          <div className="flex items-center justify-between px-4 py-3">
+          <div className="flex items-center justify-between px-4 bg-gray-50/10 py-3">
 
             {/* Logo */}
             <Link
@@ -120,18 +120,18 @@ const Navbar = () => {
             <div className="hidden md:flex items-center gap-2 shrink-0">
               {isAuthenticated ? (
                 <>
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--clr-emerald)]/10">
+                  <div className="flex items-center px-5 bg-gray-100/10 gap-1.5 px-3 py-1.5 rounded-full bg-[var(--clr-emerald)]/10">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--clr-emerald)" strokeWidth="2">
                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                       <circle cx="12" cy="7" r="4"/>
                     </svg>
-                    <span className="text-[13px] text-[var(--clr-emerald)] font-medium">
+                    <span className="text-[13px] text-[var(--clr-emerald)]  font-medium">
                       {user?.username}
                     </span>
                   </div>
                   <motion.button
                     onClick={logout}
-                    className="text-[13px] text-white/50 hover:text-white/90 px-4 py-1.5 rounded-full bg-white/[0.05] hover:bg-white/[0.09] transition-all duration-200"
+                    className="text-[13px] text-white/50 hover:text-white  px-4 py-1.5 rounded-full bg-white/[0.05] hover:bg-red-700 transition-all duration-200"
                     whileTap={{ scale: 0.95 }}
                   >
                     Log out

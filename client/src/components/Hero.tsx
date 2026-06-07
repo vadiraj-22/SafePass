@@ -151,15 +151,10 @@ export function Hero() {
             >
               <Link
                 to="/password-generator"
-                className="relative group inline-flex items-center justify-center gap-2.5 w-full sm:w-auto"
+                className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto font-mono font-semibold text-sm px-7 py-3 rounded-full tracking-wide text-white border border-purple-500/60 bg-gray-900/40 hover:border-purple-500 hover:bg-gray-800/60 transition-all duration-300"
               >
-                {/* Glow layer */}
-                <span className="absolute -inset-[1px] rounded-full bg-gradient-to-r from-purple-500 to-blue-500 opacity-80 group-hover:opacity-100 transition-opacity duration-300 blur-[1px]" />
-                {/* Button face */}
-                <span className="relative inline-flex items-center gap-2.5 bg-[#08080e] text-white font-mono font-semibold text-sm px-7 py-3 rounded-full tracking-wide">
-                  <Zap className="h-4 w-4 text-purple-400" />
-                  START NOW
-                </span>
+                <Zap className="h-4 w-4 text-purple-400" />
+                START NOW
               </Link>
             </motion.div>
 

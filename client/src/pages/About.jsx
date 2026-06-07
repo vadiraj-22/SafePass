@@ -76,8 +76,7 @@ const About = () => {
             viewport={{ once: true }}
           >
             <div className="md:col-span-2 relative">
-              <span className="absolute -top-8 -left-2 text-[120px] leading-none text-[var(--clr-emerald)]/10 font-sans select-none pointer-events-none" aria-hidden="true">&ldquo;</span>
-              <h2 className="font-display text-2xl md:text-3xl text-white leading-snug relative z-10">
+              <h2 className="font-display text-2xl md:text-3xl text-white leading-snug">
                 Privacy is not<br/>a feature.<br/>
                 <span className="text-[var(--clr-emerald)]">It's the foundation.</span>
               </h2>

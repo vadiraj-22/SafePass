@@ -106,7 +106,7 @@ const PasswordManager = () => {
             animate={{ width: 56 }}
             transition={{ duration: 0.55, delay: 0.25 }}
           />
-          <span className="inline-flex items-center gap-2 text-[11px] text-[var(--clr-amber)] bg-[var(--clr-amber)]/8 rounded-full px-3 py-1.5">
+          <span className="inline-flex items-center gap-2 text-[11px] text-[var(--clr-amber)] bg-[var(--clr-amber)]/8  rounded-full px-3 py-1.5">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
             </svg>
