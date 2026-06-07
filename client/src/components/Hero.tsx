@@ -35,8 +35,8 @@ export function Hero() {
   };
 
   return (
-    <section id="home" className="relative mt-8 mb-8 md:mt-0 md:mb-0 pt-32 pb-16 md:pt-24 md:pb-16">
-      <div className="flex flex-col items-center justify-center px-4 text-center">
+    <section id="home" className="relative mt-8 mb-8 md:mt-0 md:mb-0 pt-32 pb-16 md:pt-24 md:pb-16" style={{ zIndex: 10 }}>
+      <div className="flex flex-col items-center justify-center px-4 text-center" style={{ position: 'relative', zIndex: 10 }}>
         <motion.div 
           className="z-10 mb-10 md:mb-6"
           initial={{ opacity: 0, scale: 0.8 }}
@@ -142,16 +142,19 @@ export function Hero() {
             variants={heroVariants.buttons}
             initial="initial"
             animate="animate"
+            style={{ position: 'relative', zIndex: 20 }}
           >
             {/* Primary CTA — gradient glow button */}
             <motion.div
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+              style={{ position: 'relative', zIndex: 20 }}
             >
               <Link
                 to="/password-generator"
                 className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto font-mono font-semibold text-sm px-7 py-3 rounded-full tracking-wide text-white border border-purple-500/60 bg-gray-900/40 hover:border-purple-500 hover:bg-gray-800/60 transition-all duration-300"
+                style={{ pointerEvents: 'auto', cursor: 'pointer' }}
               >
                 <Zap className="h-4 w-4 text-purple-400" />
                 START NOW
@@ -163,10 +166,12 @@ export function Hero() {
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+              style={{ position: 'relative', zIndex: 20 }}
             >
               <button
                 onClick={handleScrollToAbout}
                 className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto font-mono font-semibold text-sm px-7 py-3 rounded-full tracking-wide text-gray-300 border border-gray-700 bg-gray-900/40 hover:border-purple-500/60 hover:text-white hover:bg-gray-800/60 transition-all duration-300"
+                style={{ pointerEvents: 'auto', cursor: 'pointer' }}
               >
                 LEARN MORE
                 <ArrowRight className="h-4 w-4 opacity-60" />
