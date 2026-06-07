@@ -23,7 +23,7 @@ const AppContent = () => {
     <div className='min-h-screen bg-black text-white flex flex-col'>
       <Navbar />
       
-      <main className='flex-1'>
+      <main className=''>
         <Routes location={location}>
           <Route path="/" element={<Home />} />
           <Route path="/features" element={<Features />} />

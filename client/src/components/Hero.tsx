@@ -1,5 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Shield } from "lucide-react";
+import { ArrowRight, Shield, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from 'motion/react';
 import { smoothScrollTo } from '../utils/smoothScroll.ts';
@@ -139,35 +138,43 @@ export function Hero() {
           </motion.p>
 
           <motion.div 
-            className="flex flex-col sm:flex-row justify-center gap-4 md:gap-4 px-4"
+            className="flex flex-col sm:flex-row justify-center gap-3 px-4"
             variants={heroVariants.buttons}
             initial="initial"
             animate="animate"
           >
+            {/* Primary CTA — gradient glow button */}
             <motion.div
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.2 }}
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
             >
-              <Link to="/password-generator" className="w-full sm:w-auto">
-                <Button variant="default" size="lg" className="font-mono w-full sm:w-auto">
+              <Link
+                to="/password-generator"
+                className="relative group inline-flex items-center justify-center gap-2.5 w-full sm:w-auto"
+              >
+                {/* Glow layer */}
+                <span className="absolute -inset-[1px] rounded-full bg-gradient-to-r from-purple-500 to-blue-500 opacity-80 group-hover:opacity-100 transition-opacity duration-300 blur-[1px]" />
+                {/* Button face */}
+                <span className="relative inline-flex items-center gap-2.5 bg-[#08080e] text-white font-mono font-semibold text-sm px-7 py-3 rounded-full tracking-wide">
+                  <Zap className="h-4 w-4 text-purple-400" />
                   START NOW
-                </Button>
+                </span>
               </Link>
             </motion.div>
-            
+
+            {/* Secondary CTA — outline */}
             <motion.div
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.2 }}
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
             >
-              <button 
+              <button
                 onClick={handleScrollToAbout}
-                className="w-full sm:w-auto"
+                className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto font-mono font-semibold text-sm px-7 py-3 rounded-full tracking-wide text-gray-300 border border-gray-700 bg-gray-900/40 hover:border-purple-500/60 hover:text-white hover:bg-gray-800/60 transition-all duration-300"
               >
-                <Button variant="outline" size="lg" className="font-mono w-full sm:w-auto">
-                  LEARN MORE
-                </Button>
+                LEARN MORE
+                <ArrowRight className="h-4 w-4 opacity-60" />
               </button>
             </motion.div>
           </motion.div>
