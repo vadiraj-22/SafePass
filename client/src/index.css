@@ -4,38 +4,43 @@
 @tailwind utilities;
 
 /* ============================================================
-   DESIGN TOKENS — Creative palette beyond purple/blue
+   DESIGN TOKENS — Green Main + Gray-White Accent + Dark Emerald Theme
    ============================================================ */
 :root {
   /* Primary palette */
-  --clr-violet: #8b5cf6;
-  --clr-indigo: #6366f1;
-  --clr-cyan: #22d3ee;
-  --clr-emerald: #34d399;
-  --clr-amber: #fbbf24;
+  --clr-emerald: #10b981;
+  --clr-green: #22c55e;
+  --clr-lime: #84cc16;
+  --clr-silver: #e2e8f0;
+  --clr-slate: #cbd5e1;
+  --clr-amber: #e2e8f0;
+  --clr-gold: #f1f5f9;
+  --clr-cyan: #34d399;
+  --clr-violet: #10b981;
+  --clr-indigo: #059669;
   --clr-coral: #fb7185;
   --clr-rose: #f43f5e;
 
-  /* Surface colors */
-  --surface-0: #000000;
-  --surface-1: #0a0a0f;
-  --surface-2: #111118;
-  --surface-3: #1a1a24;
-  --surface-4: #24242f;
+  /* Surface colors — Pure neutral dark black backdrop cards (no green tint) */
+  --surface-0: #070709;
+  --surface-1: #0d0e12;
+  --surface-2: #14151c;
+  --surface-3: #1a1b24;
+  --surface-4: #22232e;
 
-  /* Text */
-  --text-primary: #f0f0f5;
-  --text-secondary: #a0a0bc;
-  --text-muted: #6e6e88;
+  /* Text — Crisp high legibility contrast */
+  --text-primary: #f8fafc;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
 
-  /* Accents per feature */
-  --accent-breach: #22d3ee;
-  --accent-generator: #fbbf24;
-  --accent-vault: #8b5cf6;
+  /* Accents */
+  --accent-breach: #e2e8f0;
+  --accent-generator: #e2e8f0;
+  --accent-vault: #e2e8f0;
 
   /* Borders */
-  --border-subtle: rgba(255,255,255,0.10);
-  --border-hover: rgba(255,255,255,0.20);
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --border-hover: rgba(255, 255, 255, 0.25);
 }
 
 /* ============================================================
@@ -45,6 +50,11 @@ body {
   background-color: #000000 !important;
   color: var(--text-primary) !important;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* High contrast text shadow for text on dynamic background */
+h1, h2, h3, h4, h5, h6, p, label, span {
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
 }
 
 html, body {
@@ -576,30 +586,10 @@ input[type="range"]::-ms-thumb:active {
 .slider-thumb::-moz-focus-outer { border: 0; }
 
 /* ============================================================
-   CANVAS — PRESERVED
+   CANVAS
    ============================================================ */
 canvas {
   pointer-events: none;
-  z-index: 0;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  min-height: 100vh;
-}
-
-canvas#canvas {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  min-height: 100vh;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@media (max-width: 768px), (hover: none) and (pointer: coarse) {
-  canvas#canvas {
-    display: none !important;
-  }
 }
 
 .relative.z-10 {

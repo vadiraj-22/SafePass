@@ -40,64 +40,57 @@ const Login = () => {
   };
 
   return (
-    <div className='relative bg-black text-white min-h-screen pt-24 pb-16 px-6'>
+    <div className='relative text-white min-h-screen pt-24 md:pt-28 pb-16 px-6'>
       <div className='max-w-5xl mx-auto'>
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-0 items-stretch min-h-[520px]'>
+        {/* Simple black semi-transparent overlay container */}
+        <div className='bg-black/65 backdrop-blur-md border border-gray-800/80 rounded-none p-2 md:p-3 shadow-2xl overflow-hidden'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-0 items-stretch min-h-[520px]'>
 
-          {/* Left — decorative panel (desktop only) */}
-          <motion.div
-            className='hidden md:flex flex-col justify-between rounded-l-2xl p-10 relative overflow-hidden'
-            style={{ background: 'var(--surface-1)' }}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            {/* Subtle dot grid */}
-            <div className="absolute inset-0 dot-grid opacity-40" />
+            {/* Left — decorative panel (desktop only) */}
+            <motion.div
+              className='hidden md:flex flex-col justify-between rounded-l-2xl p-10 relative overflow-hidden bg-black/60 border-r border-white/10'
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {/* Subtle dot grid */}
+              <div className="absolute inset-0 dot-grid opacity-40" />
 
-            {/* Decorative gradient blob */}
-            <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full opacity-20 blur-3xl"
-              style={{ background: 'var(--clr-violet)' }} />
-
-            <div className="relative z-10">
-              <div className="mb-8">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--clr-violet)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                </svg>
+              <div className="relative z-10">
+                <div className="mb-8">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-emerald-400">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                  </svg>
+                </div>
+                <h2 className="font-display text-3xl text-white font-extrabold leading-tight mb-3">
+                  Welcome<br/>back.
+                </h2>
+                <p className="text-gray-300 text-sm leading-relaxed max-w-xs">
+                  Access your secure vault and manage your passwords with confidence.
+                </p>
               </div>
-              <h2 className="font-display text-3xl text-white leading-tight mb-3">
-                Welcome<br/>back.
-              </h2>
-              <p className="text-[var(--text-secondary)] text-sm leading-relaxed max-w-xs">
-                Access your secure vault and manage your passwords with confidence.
-              </p>
-            </div>
 
-            <div className="relative z-10 flex flex-wrap gap-2">
-              <span className="badge-chip">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--clr-emerald)]"></span>
-                Encrypted
-              </span>
-              <span className="badge-chip">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--clr-cyan)]"></span>
-                Private
-              </span>
-              <span className="badge-chip">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--clr-amber)]"></span>
-                Secure
-              </span>
-            </div>
-          </motion.div>
+              <div className="relative z-10 flex flex-wrap gap-2">
+                <span className="badge-chip bg-white/10 text-white border border-white/15 px-3 py-1 rounded-full text-xs font-mono">
+                  Encrypted
+                </span>
+                <span className="badge-chip bg-white/10 text-white border border-white/15 px-3 py-1 rounded-full text-xs font-mono">
+                  Private
+                </span>
+                <span className="badge-chip bg-white/10 text-white border border-white/15 px-3 py-1 rounded-full text-xs font-mono">
+                  Secure
+                </span>
+              </div>
+            </motion.div>
 
-          {/* Right — form */}
-          <motion.div
-            className='rounded-2xl md:rounded-l-none md:rounded-r-2xl p-8 md:p-10 relative overflow-hidden'
-            style={{ background: 'var(--surface-2)', border: '1px solid var(--border-subtle)' }}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+            {/* Right — form */}
+            <motion.div
+              className='rounded-2xl md:rounded-l-none md:rounded-r-2xl p-8 md:p-10 relative overflow-hidden bg-black/40'
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
             {/* Mobile-only header */}
             <div className='md:hidden mb-8'>
               <h1 className='font-display text-3xl text-white mb-2'>Welcome back.</h1>
@@ -173,6 +166,7 @@ const Login = () => {
               </p>
             </div>
           </motion.div>
+        </div>
         </div>
       </div>
     </div>

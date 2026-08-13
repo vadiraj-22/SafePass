@@ -31,7 +31,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="fixed top-5 left-0 right-0 z-50 flex justify-center  pointer-events-none px-4">
+    <div className="fixed top-4 left-0 right-0 z-50 flex justify-center pointer-events-none px-4">
       <motion.div
         className="pointer-events-auto relative w-full max-w-3xl"
         layout
@@ -42,10 +42,10 @@ const Navbar = () => {
           className="absolute -inset-2 rounded-[36px] pointer-events-none"
           style={{ filter: 'blur(28px)' }}
           animate={{
-            opacity: open ? 0.4 : scrolled ? 0.12 : 0.22,
+            opacity: open ? 0.45 : scrolled ? 0.15 : 0.28,
             background: open
-              ? 'radial-gradient(ellipse at 50% 0%, var(--clr-violet) 0%, var(--clr-cyan) 100%)'
-              : 'radial-gradient(ellipse at 50% 0%, var(--clr-violet) 0%, transparent 65%)',
+              ? 'radial-gradient(ellipse at 50% 0%, var(--clr-green) 0%, var(--clr-amber) 100%)'
+              : 'radial-gradient(ellipse at 50% 0%, var(--clr-green) 0%, transparent 65%)',
           }}
           transition={{ duration: 0.6 }}
         />
@@ -69,23 +69,18 @@ const Navbar = () => {
           transition={{ type: 'spring', stiffness: 340, damping: 36 }}
         >
           {/* ── Main pill row ── */}
-          <div className="flex items-center justify-between px-4 bg-gray-50/10 py-3">
+          <div className="flex items-center justify-between px-4 bg-gray-50/10 py-2.5">
 
-            {/* Logo */}
+            {/* Creative Logo */}
             <Link
               to="/"
-              className="flex items-center gap-2 px-2.5 py-1.5 rounded-full hover:bg-white/[0.06] transition-colors shrink-0"
+              className="flex items-center gap-2.5 px-3 py-1.5 rounded-full hover:bg-white/[0.06] transition-colors shrink-0 group"
             >
-              <motion.img
-                src="/favicon_2.png"
-                className="h-8 w-8"
-                alt="SafePass"
-                animate={{ scale: [1, 1.06, 1] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              <img
+                src="/SafepassLogo.png"
+                alt="SafePass Logo"
+                className="h-8 md:h-9 w-auto object-contain"
               />
-              <span className="font-display text-[16px] tracking-tight text-white hidden sm:block">
-                Safe<span className="text-[var(--clr-violet)]">Pass</span>
-              </span>
             </Link>
 
             {/* Divider */}
@@ -120,18 +115,22 @@ const Navbar = () => {
             <div className="hidden md:flex items-center gap-2 shrink-0">
               {isAuthenticated ? (
                 <>
-                  <div className="flex items-center px-5 bg-gray-100/10 gap-1.5 px-3 py-1.5 rounded-full bg-[var(--clr-emerald)]/10">
+                  <Link
+                    to="/profile"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 border border-gray-700/60 hover:border-gray-600 transition-all duration-200"
+                    title="View Profile"
+                  >
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--clr-emerald)" strokeWidth="2">
                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                       <circle cx="12" cy="7" r="4"/>
                     </svg>
-                    <span className="text-[13px] text-[var(--clr-emerald)]  font-medium">
+                    <span className="text-[13px] text-[var(--clr-emerald)] font-medium">
                       {user?.username}
                     </span>
-                  </div>
+                  </Link>
                   <motion.button
                     onClick={logout}
-                    className="text-[13px] text-white/50 hover:text-white  px-4 py-1.5 rounded-full bg-white/[0.05] hover:bg-red-700 transition-all duration-200"
+                    className="text-[13px] text-white/50 hover:text-white px-4 py-1.5 rounded-full bg-white/[0.05] hover:bg-red-700 transition-all duration-200"
                     whileTap={{ scale: 0.95 }}
                   >
                     Log out
@@ -230,9 +229,14 @@ const Navbar = () => {
                     <div className="h-px bg-white/[0.07] my-2" />
                     {isAuthenticated ? (
                       <div className="flex items-center justify-between px-4 py-2">
-                        <span className="text-sm text-[var(--clr-emerald)] font-medium">
-                          {user?.username}
-                        </span>
+                        <Link
+                          to="/profile"
+                          onClick={() => setOpen(false)}
+                          className="text-sm text-[var(--clr-emerald)] font-medium hover:underline flex items-center gap-1.5"
+                        >
+                          <span>{user?.username}</span>
+                          <span className="text-xs text-white/40">(Profile)</span>
+                        </Link>
                         <button
                           onClick={() => { logout(); setOpen(false); }}
                           className="text-sm text-white/50 hover:text-white transition-colors"

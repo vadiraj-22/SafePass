@@ -42,68 +42,62 @@ const Signup = () => {
   };
 
   return (
-    <div className='relative bg-black text-white min-h-screen pt-24 pb-16 px-6'>
+    <div className='relative text-white min-h-screen pt-24 md:pt-28 pb-16 px-6'>
       <div className='max-w-5xl mx-auto'>
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch min-h-[600px]'>
+        {/* Simple black semi-transparent overlay container */}
+        <div className='bg-black/65 backdrop-blur-md border border-gray-800/80 rounded-none p-2 md:p-3 shadow-2xl overflow-hidden'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch min-h-[600px]'>
 
-          {/* Left — decorative panel (desktop only) */}
-          <motion.div
-            className='hidden md:flex flex-col justify-between rounded-l-2xl p-10 relative overflow-hidden'
-            style={{ background: 'var(--surface-1)' }}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="absolute inset-0 dot-grid opacity-40" />
+            {/* Left — decorative panel (desktop only) */}
+            <motion.div
+              className='hidden md:flex flex-col justify-between rounded-l-2xl p-10 relative overflow-hidden bg-black/60 border-r border-white/10'
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="absolute inset-0 dot-grid opacity-40" />
 
-            {/* Decorative gradient blob */}
-            <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full opacity-20 blur-3xl"
-              style={{ background: 'var(--clr-cyan)' }} />
-            <div className="absolute -bottom-16 -left-16 w-48 h-48 rounded-full opacity-15 blur-3xl"
-              style={{ background: 'var(--clr-emerald)' }} />
-
-            <div className="relative z-10">
-              <div className="mb-8">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--clr-cyan)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                </svg>
+              <div className="relative z-10">
+                <div className="mb-8">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-emerald-400">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  </svg>
+                </div>
+                <h2 className="font-display text-3xl text-white font-extrabold leading-tight mb-3">
+                  Start<br/>securing.
+                </h2>
+                <p className="text-gray-300 text-sm leading-relaxed max-w-xs">
+                  Create your account and get access to military-grade password security tools — for free.
+                </p>
               </div>
-              <h2 className="font-display text-3xl text-white leading-tight mb-3">
-                Start<br/>securing.
-              </h2>
-              <p className="text-[var(--text-secondary)] text-sm leading-relaxed max-w-xs">
-                Create your account and get access to military-grade password security tools — for free.
-              </p>
-            </div>
 
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-8 h-[1px] bg-[var(--border-hover)]" />
-                <span className="text-[var(--text-muted)] text-xs uppercase tracking-widest">What you get</span>
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-8 h-[1px] bg-white/20" />
+                  <span className="text-slate-400 text-xs uppercase tracking-widest font-mono">What you get</span>
+                </div>
+                <div className="space-y-2.5">
+                  {[
+                    { text: "Secure password vault" },
+                    { text: "Breach monitoring" },
+                    { text: "Password generator" },
+                  ].map(item => (
+                    <div key={item.text} className="flex items-center gap-2.5 text-sm text-gray-200">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                      {item.text}
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="space-y-2.5">
-                {[
-                  { text: "Secure password vault", color: "var(--clr-violet)" },
-                  { text: "Breach monitoring", color: "var(--clr-cyan)" },
-                  { text: "Password generator", color: "var(--clr-amber)" },
-                ].map(item => (
-                  <div key={item.text} className="flex items-center gap-2.5 text-sm text-[var(--text-secondary)]">
-                    <span className="w-1.5 h-1.5 rounded-full" style={{ background: item.color }} />
-                    {item.text}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
 
-          {/* Right — form */}
-          <motion.div
-            className='rounded-2xl md:rounded-l-none md:rounded-r-2xl p-8 md:p-10 relative overflow-hidden'
-            style={{ background: 'var(--surface-2)', border: '1px solid var(--border-subtle)' }}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+            {/* Right — form */}
+            <motion.div
+              className='rounded-2xl md:rounded-l-none md:rounded-r-2xl p-8 md:p-10 relative overflow-hidden bg-black/40'
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
             {/* Mobile header */}
             <div className='md:hidden mb-8'>
               <h1 className='font-display text-3xl text-white mb-2'>Start securing.</h1>
@@ -198,6 +192,7 @@ const Signup = () => {
               </p>
             </div>
           </motion.div>
+        </div>
         </div>
       </div>
     </div>

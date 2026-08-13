@@ -22,9 +22,9 @@ const icons = {
 };
 
 const accentMap = {
-  'Data Breach Checker': { color: 'var(--accent-breach)', bg: 'rgba(34,211,238,0.06)', border: 'rgba(34,211,238,0.12)', hoverBorder: 'rgba(34,211,238,0.35)' },
-  'Password Generator': { color: 'var(--accent-generator)', bg: 'rgba(251,191,36,0.06)', border: 'rgba(251,191,36,0.12)', hoverBorder: 'rgba(251,191,36,0.35)' },
-  'Password Manager': { color: 'var(--accent-vault)', bg: 'rgba(139,92,246,0.06)', border: 'rgba(139,92,246,0.12)', hoverBorder: 'rgba(139,92,246,0.35)' },
+  'Data Breach Checker': { color: 'var(--clr-green)', bg: 'rgba(34,197,94,0.08)', border: 'rgba(34,197,94,0.20)', hoverBorder: 'rgba(34,197,94,0.45)' },
+  'Password Generator': { color: 'var(--clr-silver)', bg: 'rgba(226,232,240,0.08)', border: 'rgba(226,232,240,0.20)', hoverBorder: 'rgba(226,232,240,0.45)' },
+  'Password Manager': { color: 'var(--clr-emerald)', bg: 'rgba(16,185,129,0.08)', border: 'rgba(16,185,129,0.20)', hoverBorder: 'rgba(16,185,129,0.45)' },
 };
 
 const FeatureCard = ({ icon, title, description, link, comingSoon }) => {

@@ -92,6 +92,37 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  const updateProfile = async (username) => {
+    try {
+      const response = await axios.put(`${API_URL}/auth/profile`, { username });
+      setUser((prevUser) => ({
+        ...prevUser,
+        ...response.data.user
+      }));
+      return { success: true, message: response.data.message || 'Profile updated successfully' };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Failed to update profile'
+      };
+    }
+  };
+
+  const updatePassword = async (oldPassword, newPassword) => {
+    try {
+      const response = await axios.put(`${API_URL}/auth/change-password`, {
+        oldPassword,
+        newPassword
+      });
+      return { success: true, message: response.data.message || 'Password updated successfully' };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Failed to update password'
+      };
+    }
+  };
+
   const value = {
     user,
     token,
@@ -99,8 +130,11 @@ export const AuthProvider = ({ children }) => {
     register,
     login,
     logout,
+    updateProfile,
+    updatePassword,
     isAuthenticated: !!user
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
+
