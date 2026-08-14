@@ -39,11 +39,8 @@ export const sendEmail = async ({ to, subject, otp, type = 'login_verification' 
               
               <!-- Brand Header -->
               <tr>
-                <td style="padding: 36px 36px 28px 36px; text-align: center; border-bottom: 1px solid #1a1c29; background: linear-gradient(180deg, #131522 0%, #0f1017 100%);">
-                  <div style="display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 16px; margin-bottom: 16px; box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);">
-                    <span style="font-size: 28px; line-height: 1;">🛡️</span>
-                  </div>
-                  <h1 style="margin: 0; font-size: 26px; font-weight: 800; tracking: -0.5px; color: #ffffff; letter-spacing: -0.5px;">SafePass</h1>
+                <td style="padding: 32px 36px 24px 36px; text-align: center; border-bottom: 1px solid #1a1c29; background: linear-gradient(180deg, #131522 0%, #0f1017 100%);">
+                  <h1 style="margin: 0; font-size: 26px; font-weight: 800; color: #ffffff; letter-spacing: -0.5px;">SafePass</h1>
                   <p style="margin: 6px 0 0 0; font-size: 11px; font-weight: 700; color: #34d399; text-transform: uppercase; letter-spacing: 2px;">Security Verification</p>
                 </td>
               </tr>
