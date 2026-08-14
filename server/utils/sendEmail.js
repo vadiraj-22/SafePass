@@ -106,6 +106,16 @@ export const sendEmail = async ({ to, subject, otp, type = 'login_verification' 
 
   if (brevoApiKey) {
     try {
+      // Determine valid sender email for Brevo (must be registered Brevo account email)
+      let senderEmail = process.env.BREVO_SENDER_EMAIL || process.env.SMTP_USER;
+      if (!senderEmail && process.env.EMAIL_FROM) {
+        const match = process.env.EMAIL_FROM.match(/<([^>]+)>/);
+        senderEmail = match ? match[1] : (process.env.EMAIL_FROM.includes('@') ? process.env.EMAIL_FROM.trim() : null);
+      }
+      if (!senderEmail) {
+        senderEmail = 'vadirajjoshi22504@gmail.com';
+      }
+
       const res = await fetch('https://api.brevo.com/v3/smtp/email', {
         method: 'POST',
         headers: {
@@ -114,7 +124,7 @@ export const sendEmail = async ({ to, subject, otp, type = 'login_verification' 
           'api-key': brevoApiKey
         },
         body: JSON.stringify({
-          sender: { name: 'SafePass Security', email: process.env.SMTP_USER || 'noreply@safepass.com' },
+          sender: { name: 'SafePass Security', email: senderEmail },
           to: [{ email: to }],
           subject: `SafePass Security: ${subject}`,
           htmlContent: htmlContent
@@ -160,7 +170,6 @@ export const sendEmail = async ({ to, subject, otp, type = 'login_verification' 
       return { success: true, mode: 'resend_api' };
     } catch (error) {
       console.error('[sendEmail] Error sending email via Resend API:', error.message);
-      return { success: false, mode: 'resend_fallback', error: error.message };
     }
   }
 
