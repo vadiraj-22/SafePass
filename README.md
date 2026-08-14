@@ -1,14 +1,15 @@
 <div align="center">
 
-# 🔐 SafePass — Password Security Suite
+# 🔐 SafePass — Enterprise Password Security Suite
 
 ### *Enterprise-Grade Password Management & Cryptographic Security Platform*
 
 [![Live Application](https://img.shields.io/badge/🌐_Live_App-SafePass-10b981?style=for-the-badge)](https://safepass-ewqi.onrender.com/)
-[![React](https://img.shields.io/badge/React-19.2-61dafb?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
+[![React](https://img.shields.io/badge/React-19.0-61dafb?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-Express-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-Database-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
-[![TailwindCSS](https://img.shields.io/badge/Tailwind-CSS-38bdf8?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind-CSS_4-38bdf8?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![License](https://img.shields.io/badge/License-MIT-amber500?style=for-the-badge)](LICENSE)
 
 ---
 
@@ -20,20 +21,25 @@
 
 ## 📌 Executive Summary
 
-**SafePass** is an end-to-end encrypted password management and security auditing suite designed for modern digital privacy. It combines secure account vault storage, real-time data breach detection, 2-Step Email Verification (OTP), and strong password policy enforcement into a unified, high-performance web interface.
+**SafePass** is an end-to-end encrypted password management and security auditing suite engineered for digital privacy and credential safety. It combines authenticated AES-256-GCM vault encryption, real-time data breach detection via Have I Been Pwned API, multi-provider 2-Step Email Verification (OTP), and strong password policy enforcement into a unified, high-performance web interface.
 
 ---
 
 ## ✨ Core Capabilities
 
-### 🛡️ Security & Authentication
-- 📧 **2-Step Email Verification (OTP)** — Multi-factor sign-in security powered by Nodemailer.
-- 🎛️ **User-Controlled 2FA Toggle** — Enable or disable 2-Step OTP verification anytime in User Profile settings.
+### 🔐 Cryptographic Vault Security
+- 🛡️ **AES-256-GCM Encryption** — Authenticated symmetric encryption for all stored user credentials preventing data tampering.
+- 🔑 **PBKDF2 Key Derivation** — High-security key generation using 100,000 iterations of SHA-256 PBKDF2 with unique per-record salt and IV.
+- 🚫 **Zero Plain-Text Storage** — Passwords are encrypted before persisting to database storage; secret keys are never exposed in responses.
+
+### 🛡️ Authentication & Access Controls
+- 📧 **Multi-Provider 2-Step Email OTP** — Secure 6-digit login verification supporting **Brevo API**, **Resend API**, and **SMTP (Nodemailer)** with automatic failover.
+- 🎛️ **User-Controlled 2FA Toggle** — Turn 2-Step Email OTP verification ON or OFF at any time in User Profile settings.
 - 🔑 **Strong Password Policy** — Enforces minimum 8 characters with uppercase, lowercase, numbers, and special symbols.
 - 📊 **Real-Time Password Strength Meter** — Interactive 5-rule checklist providing live visual feedback on password complexity.
-- 📨 **OTP Password Recovery** — Secure self-service account recovery via 6-digit email OTP verification.
-- 🔒 **bcrypt Password Hashing** — Salted key derivation for storing user credentials.
-- 🛡️ **JWT Bearer Token Auth** — Stateless authentication with 7-day token rotation.
+- 📨 **OTP Account Recovery** — Secure self-service account password reset via 6-digit email OTP verification.
+- 🔒 **bcrypt Password Hashing** — Salted bcrypt key derivation for user authentication passwords.
+- 🛡️ **JWT Bearer Token Auth** — Stateless authentication with secure token verification.
 
 ### 🎯 Security Suite Tools
 - 🔍 **Data Breach Checker** — Integrates with Have I Been Pwned API to check passwords against 70M+ compromised records.
@@ -44,15 +50,16 @@
 
 ## 🏗️ Architecture & Technology Stack
 
-| Layer | Technologies |
-| :--- | :--- |
-| **Frontend Framework** | React 19, React Router v7, Context API |
-| **Styling & Motion** | Tailwind CSS 4, Framer Motion, Lucide Icons |
-| **Backend Runtime** | Node.js, Express.js (REST API) |
-| **Database** | MongoDB, Mongoose ODM |
-| **Mail Services** | Nodemailer (SMTP transport with dev console fallback) |
-| **Security Packages** | JSON Web Tokens (`jsonwebtoken`), `bcryptjs`, CORS |
-| **Build & Tooling** | Vite, TypeScript |
+| Layer | Technologies | Description |
+| :--- | :--- | :--- |
+| **Frontend Framework** | React 19, React Router v7, Context API | Single Page Application with dynamic client-side routing |
+| **Styling & Motion** | Tailwind CSS 4, Framer Motion, Lucide Icons | Responsive UI with smooth transitions |
+| **Backend Runtime** | Node.js, Express.js | RESTful HTTP API services |
+| **Database** | MongoDB, Mongoose ODM | Document storage for encrypted vault items and users |
+| **Cryptography** | Node Crypto (`aes-256-gcm`, PBKDF2), `bcryptjs` | Authenticated encryption & salted password hashing |
+| **Mail Services** | Brevo API, Resend API, Nodemailer (SMTP) | Multi-channel OTP delivery with dev console fallback |
+| **Authentication** | JSON Web Tokens (`jsonwebtoken`) | Stateless bearer authentication |
+| **Build & Tooling** | Vite, TypeScript, Nodemon | Dev toolchain and fast builds |
 
 ---
 
@@ -77,8 +84,8 @@
 
 | Method | Endpoint | Description | Auth Required |
 | :--- | :--- | :--- | :---: |
-| `GET` | `/api/passwords` | Retrieve user's stored vault credentials | ✅ |
-| `POST` | `/api/passwords` | Create and store a new vault record | ✅ |
+| `GET` | `/api/passwords` | Retrieve & decrypt user's stored vault credentials | ✅ |
+| `POST` | `/api/passwords` | Encrypt and store a new vault record | ✅ |
 | `PUT` | `/api/passwords/:id` | Update an existing vault record | ✅ |
 | `DELETE` | `/api/passwords/:id` | Remove a credential record from vault | ✅ |
 
@@ -113,12 +120,21 @@ JWT_SECRET=your_super_secret_jwt_key
 ENCRYPTION_KEY=your_super_secret_encryption_key_min_32_chars
 NODE_ENV=development
 
-# SMTP Mail Settings (Optional: falls back to server console logging if omitted)
+# --- Email Provider Configuration (Choose one or multiple) ---
+
+# Option A: Brevo API (Recommended for Cloud Hosting / Render)
+BREVO_API_KEY=xkeysib-your-brevo-api-key-here
+BREVO_SENDER_EMAIL=your_verified_sender@email.com
+
+# Option B: Resend API
+RESEND_API_KEY=re_your_resend_api_key_here
+EMAIL_FROM="SafePass Security" <onboarding@resend.dev>
+
+# Option C: Standard SMTP (Gmail, SendGrid, etc.)
 SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
+SMTP_PORT=465
 SMTP_USER=your_email@gmail.com
 SMTP_PASS=your_16_digit_app_password
-EMAIL_FROM="SafePass Security" <your_email@gmail.com>
 ```
 
 Create `.env` in `client/`:
@@ -156,3 +172,4 @@ This project is licensed under the **MIT License**.
 **Vadiraj Joshi**
 - 🌐 Application Demo: [https://safepass-ewqi.onrender.com/](https://safepass-ewqi.onrender.com/)
 - 📧 Contact Email: vadirajjoshi22504@gmail.com
+
