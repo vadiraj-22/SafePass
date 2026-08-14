@@ -226,7 +226,7 @@ const ForgotPassword = () => {
                       </button>
                       <h2 className='text-2xl font-bold text-white mb-1'>Set New Password</h2>
                       <p className='text-gray-400 text-xs leading-relaxed'>
-                        Enter the 6-digit OTP code sent to <span className="text-emerald-400 font-mono font-medium">{email}</span> and your new password.
+                        Enter the 6-digit OTP code sent to <span className="text-emerald-400 font-mono font-medium">{email}</span> and your new password. Check your <span className="text-amber-400 font-medium">Spam, Junk, or Updates folder</span> if not in your primary inbox.
                       </p>
                     </div>
 

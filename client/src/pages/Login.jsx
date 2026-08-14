@@ -245,7 +245,7 @@ const Login = () => {
                       </button>
                       <h2 className='text-xl font-bold text-white mb-1'>Verify OTP Code</h2>
                       <p className='text-gray-400 text-xs leading-relaxed'>
-                        Enter the 6-digit code sent to <span className="text-emerald-400 font-mono font-medium">{email}</span>
+                        Enter the 6-digit code sent to <span className="text-emerald-400 font-mono font-medium">{email}</span>. If you don't see it in your inbox, please <span className="text-amber-400 font-medium">check your Spam, Junk, or Updates folder</span>.
                       </p>
                     </div>
 
