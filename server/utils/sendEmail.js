@@ -103,8 +103,38 @@ export const sendEmail = async ({ to, subject, otp, type = 'login_verification' 
     console.log(`[sendEmail] Preparing OTP email for: ${to} (Type: ${type})`);
   }
 
-  // Check if SMTP or Resend API is configured
+  // Check if Brevo or Resend API is configured
+  const brevoApiKey = process.env.BREVO_API_KEY;
   const resendApiKey = process.env.RESEND_API_KEY || (SMTP_PASS && SMTP_PASS.startsWith('re_') ? SMTP_PASS : null);
+
+  if (brevoApiKey) {
+    try {
+      const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+        method: 'POST',
+        headers: {
+          'accept': 'application/json',
+          'content-type': 'application/json',
+          'api-key': brevoApiKey
+        },
+        body: JSON.stringify({
+          sender: { name: 'SafePass Security', email: process.env.SMTP_USER || 'noreply@safepass.com' },
+          to: [{ email: to }],
+          subject: `SafePass Security: ${subject}`,
+          htmlContent: htmlContent
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || JSON.stringify(data));
+      }
+
+      console.log('[sendEmail] Successfully sent email via Brevo API to:', to);
+      return { success: true, mode: 'brevo_api' };
+    } catch (error) {
+      console.error('[sendEmail] Error sending email via Brevo API:', error.message);
+    }
+  }
 
   if (resendApiKey) {
     try {
