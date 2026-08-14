@@ -103,9 +103,42 @@ export const sendEmail = async ({ to, subject, otp, type = 'login_verification' 
     console.log(`[sendEmail] Preparing OTP email for: ${to} (Type: ${type})`);
   }
 
-  // Check if SMTP is configured
+  // Check if SMTP or Resend API is configured
+  const resendApiKey = process.env.RESEND_API_KEY || (SMTP_PASS && SMTP_PASS.startsWith('re_') ? SMTP_PASS : null);
+
+  if (resendApiKey) {
+    try {
+      const fromSender = EMAIL_FROM || 'SafePass Security <onboarding@resend.dev>';
+      const res = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${resendApiKey}`
+        },
+        body: JSON.stringify({
+          from: fromSender,
+          to: [to],
+          subject: `SafePass Security: ${subject}`,
+          html: htmlContent,
+          text: `Your ${actionTitle} is: ${otp}. Valid for 10 minutes.`
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || JSON.stringify(data));
+      }
+
+      console.log('[sendEmail] Successfully sent email via Resend API to:', to);
+      return { success: true, mode: 'resend_api' };
+    } catch (error) {
+      console.error('[sendEmail] Error sending email via Resend API:', error.message);
+      return { success: false, mode: 'resend_fallback', error: error.message };
+    }
+  }
+
   if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
-    console.log('[sendEmail] SMTP environment variables not configured. Used dev console fallback.');
+    console.log('[sendEmail] Email environment variables not configured. Used dev console fallback.');
     return { success: true, mode: 'console' };
   }
 
