@@ -3,12 +3,6 @@ import { useAuth } from '../context/AuthContext';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
-const navLinks = [
-  { to: '/', label: 'Home' },
-  { to: '/password-generator', label: 'Generator' },
-  { to: '/breach-checker', label: 'Breach' },
-];
-
 const Navbar = () => {
   const { isAuthenticated, user, logout } = useAuth();
   const [open, setOpen] = useState(false);
@@ -26,8 +20,10 @@ const Navbar = () => {
   }, []);
 
   const allLinks = [
-    ...navLinks,
+    { to: '/', label: 'Home' },
+    { to: '/breach-checker', label: 'Breach' },
     ...(isAuthenticated ? [{ to: '/password-manager', label: 'Vault' }] : []),
+    { to: '/password-generator', label: 'Generator' },
   ];
 
   return (
@@ -77,7 +73,7 @@ const Navbar = () => {
               className="flex items-center gap-2.5 px-3 py-1.5 rounded-full hover:bg-white/[0.06] transition-colors shrink-0 group"
             >
               <img
-                src="/SafepassLogo.png"
+                src="/safepass.png"
                 alt="SafePass Logo"
                 className="h-8 md:h-9 w-auto object-contain"
               />

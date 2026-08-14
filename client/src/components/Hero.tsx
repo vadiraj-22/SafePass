@@ -27,19 +27,19 @@ export function Hero() {
 
   return (
     <section id="home" className="relative pt-24 pb-16 md:pt-28 md:pb-16" style={{ zIndex: 10 }}>
-      <div className="flex flex-col items-center justify-center px-4 text-center">
-        <div className="w-full max-w-5xl mx-auto">
+      <div className="flex flex-col items-center justify-center px-6 md:px-10 lg:px-12 text-center">
+        <div className="w-full max-w-6xl mx-auto">
           <motion.div 
-            className="relative mx-auto border border-gray-800/80 p-8 md:p-12 bg-black/65 backdrop-blur-md rounded-none shadow-2xl"
+            className="relative mx-auto border-2 border-emerald-500/30 p-7 md:p-11 lg:p-14 bg-black/75 backdrop-blur-md rounded-2xl md:rounded-3xl shadow-2xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
             {/* Corner subtle accents */}
-            <div className="absolute top-3 left-3 w-4 h-4 border-l-2 border-t-2 border-emerald-500/40" />
-            <div className="absolute top-3 right-3 w-4 h-4 border-r-2 border-t-2 border-emerald-500/40" />
-            <div className="absolute bottom-3 left-3 w-4 h-4 border-l-2 border-b-2 border-emerald-500/40" />
-            <div className="absolute bottom-3 right-3 w-4 h-4 border-r-2 border-b-2 border-emerald-500/40" />
+            <div className="absolute top-4 left-4 w-6 h-6 border-l-2 border-t-2 border-emerald-400" />
+            <div className="absolute top-4 right-4 w-6 h-6 border-r-2 border-t-2 border-emerald-400" />
+            <div className="absolute bottom-4 left-4 w-6 h-6 border-l-2 border-b-2 border-emerald-400" />
+            <div className="absolute bottom-4 right-4 w-6 h-6 border-r-2 border-b-2 border-emerald-400" />
 
             {/* Badge */}
             <motion.div 

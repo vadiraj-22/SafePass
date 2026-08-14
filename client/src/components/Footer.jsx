@@ -12,18 +12,11 @@ const Footer = () => {
           {/* Brand block — takes more space */}
           <div className='md:col-span-5'>
             <Link to='/' className='flex items-center gap-2.5 mb-4 group'>
-              <div className="relative flex items-center justify-center p-1.5 rounded-xl bg-emerald-950/40 border border-emerald-500/30 group-hover:border-emerald-400/60 transition-colors">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="text-emerald-400 shrink-0">
-                  <path d="M12 2L3 7V12C3 17.55 6.84 21.74 12 23C17.16 21.74 21 17.55 21 12V7L12 2Z" fill="rgba(16,185,129,0.18)" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/>
-                  <rect x="9" y="10" width="6" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.8"/>
-                  <path d="M10 10V8C10 6.895 10.895 6 12 6C13.105 6 14 6.895 14 8V10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
-                </svg>
-              </div>
-              <span className='font-display text-xl font-extrabold tracking-tight flex items-center'>
-                <span className="text-white font-extrabold">Safe</span>
-                <span className="text-emerald-400 font-extrabold ml-0.5">Pass</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 ml-1.5 inline-block" />
-              </span>
+              <img
+                src="/safepass.png"
+                alt="SafePass Logo"
+                className="h-9 w-auto object-contain"
+              />
             </Link>
             <p className='text-[var(--text-secondary)] text-sm leading-relaxed max-w-sm'>
               Your complete platform for password security. Military-grade encryption and security tools to keep your digital life safe.

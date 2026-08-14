@@ -200,8 +200,8 @@ const PasswordGenerator = () => {
     <div className='relative text-white pt-24 md:pt-28 pb-16 px-4 md:px-6 max-w-6xl mx-auto space-y-6'>
       {/* Editorial Header */}
       <div className="bg-black/65 backdrop-blur-md border border-gray-800/80 rounded-2xl md:rounded-3xl p-6 md:p-7 shadow-2xl space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 font-mono text-xs font-semibold uppercase tracking-wider">
-          <span className="w-2 h-2 rounded-full bg-amber-400" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-semibold uppercase tracking-wider">
+          <span className="w-2 h-2 rounded-full bg-emerald-400" />
           CRYPTOGRAPHIC PASSWORD GENERATOR
         </div>
 
@@ -210,7 +210,7 @@ const PasswordGenerator = () => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          Password Generator & <span className="text-[#f59e0b] font-extrabold">Entropy Analyzer</span>
+          Password Generator & <span className="text-purple-400 font-extrabold">Entropy Analyzer</span>
         </motion.h1>
 
         <p className="text-slate-300 text-xs md:text-sm max-w-3xl leading-relaxed font-body">

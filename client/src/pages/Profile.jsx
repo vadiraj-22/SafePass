@@ -11,18 +11,27 @@ import {
   Eye, 
   EyeOff, 
   ShieldCheck, 
+  ShieldAlert,
   Save, 
-  Loader2 
+  Loader2,
+  Smartphone
 } from 'lucide-react';
+import { PasswordStrengthChecklist, checkPasswordRequirements } from '../components/PasswordStrengthChecklist';
 
 const Profile = () => {
-  const { user, updateProfile, updatePassword } = useAuth();
+  const { user, updateProfile, updatePassword, toggle2FA } = useAuth();
 
   // Profile form state
   const [username, setUsername] = useState(user?.username || '');
   const [profileLoading, setProfileLoading] = useState(false);
   const [profileSuccess, setProfileSuccess] = useState('');
   const [profileError, setProfileError] = useState('');
+
+  // 2FA state
+  const [twoFactorEnabled, setTwoFactorEnabled] = useState(user?.twoFactorEnabled || false);
+  const [tfaLoading, setTfaLoading] = useState(false);
+  const [tfaSuccess, setTfaSuccess] = useState('');
+  const [tfaError, setTfaError] = useState('');
 
   // Password form state
   const [oldPassword, setOldPassword] = useState('');
@@ -35,10 +44,13 @@ const Profile = () => {
   const [passwordSuccess, setPasswordSuccess] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  // Keep username synced if user object updates
+  // Keep state synced if user object updates
   useEffect(() => {
     if (user?.username) {
       setUsername(user.username);
+    }
+    if (typeof user?.twoFactorEnabled === 'boolean') {
+      setTwoFactorEnabled(user.twoFactorEnabled);
     }
   }, [user]);
 
@@ -73,6 +85,23 @@ const Profile = () => {
     }
   };
 
+  const handleToggle2FA = async () => {
+    setTfaError('');
+    setTfaSuccess('');
+    setTfaLoading(true);
+
+    const newValue = !twoFactorEnabled;
+    const result = await toggle2FA(newValue);
+    setTfaLoading(false);
+
+    if (result.success) {
+      setTwoFactorEnabled(newValue);
+      setTfaSuccess(result.message || `2-Step Verification ${newValue ? 'enabled' : 'disabled'}`);
+    } else {
+      setTfaError(result.message || 'Failed to update 2-Step Verification setting');
+    }
+  };
+
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
     setPasswordError('');
@@ -88,8 +117,9 @@ const Profile = () => {
       return;
     }
 
-    if (newPassword.length < 6) {
-      setPasswordError('New password must be at least 6 characters long');
+    const reqs = checkPasswordRequirements(newPassword);
+    if (!Object.values(reqs).every(Boolean)) {
+      setPasswordError('New password must satisfy all strong password requirements');
       return;
     }
 
@@ -119,7 +149,6 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen text-white pt-24 md:pt-28 pb-12 px-4 md:px-6 max-w-6xl mx-auto">
-      {/* Compact Single Big Container Card matching feature pages */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
@@ -145,8 +174,13 @@ const Profile = () => {
               <h1 className="text-xl md:text-2xl font-bold tracking-tight text-white font-display">
                 {user?.username || 'User Profile'}
               </h1>
-              <span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-medium">
-                Verified Account
+              <span className={`text-[11px] px-2.5 py-0.5 rounded-full border font-medium flex items-center gap-1 ${
+                twoFactorEnabled 
+                  ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400' 
+                  : 'bg-amber-500/15 border-amber-500/30 text-amber-400'
+              }`}>
+                {twoFactorEnabled ? <ShieldCheck className="w-3 h-3" /> : <ShieldAlert className="w-3 h-3" />}
+                {twoFactorEnabled ? '2FA Protection Active' : '2FA Standard Mode'}
               </span>
             </div>
             <p className="text-xs text-slate-300 flex items-center gap-1.5 font-mono">
@@ -154,6 +188,78 @@ const Profile = () => {
               {user?.email || 'N/A'}
             </p>
           </div>
+        </div>
+
+        {/* ── Security & 2-Step Verification Feature Box ── */}
+        <div className="relative z-10 rounded-xl bg-[#12131e]/90 border border-emerald-500/30 p-5 md:p-6 shadow-lg">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-start gap-3.5">
+              <div className="p-2.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 shrink-0">
+                <Smartphone className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-base font-bold text-white font-display">2-Step Email Verification (OTP)</h2>
+                  <span className={`text-[10px] uppercase tracking-wider font-mono font-bold px-2 py-0.5 rounded ${
+                    twoFactorEnabled ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-300'
+                  }`}>
+                    {twoFactorEnabled ? 'Enabled' : 'Disabled'}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-300 mt-1 max-w-xl leading-relaxed">
+                  When enabled, SafePass will require a 6-digit OTP code sent to your registered email (<span className="text-emerald-400 font-mono">{user?.email}</span>) every time you sign in. If disabled, you can sign in directly with your password.
+                </p>
+              </div>
+            </div>
+
+            {/* Toggle Switch */}
+            <div className="flex items-center gap-3 shrink-0 self-end sm:self-center">
+              <span className="text-xs font-mono font-medium text-slate-300">
+                {twoFactorEnabled ? 'Ask OTP on Login' : 'Password Only'}
+              </span>
+              <button
+                type="button"
+                onClick={handleToggle2FA}
+                disabled={tfaLoading}
+                className={`relative inline-flex h-7 w-14 items-center shrink-0 cursor-pointer rounded-full p-1 transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-emerald-500/50 ${
+                  twoFactorEnabled ? 'bg-emerald-500 shadow-md shadow-emerald-500/30' : 'bg-slate-800 border border-slate-600'
+                } ${tfaLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                role="switch"
+                aria-checked={twoFactorEnabled}
+              >
+                <span className="sr-only">Toggle 2-Step Verification</span>
+                <span
+                  className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-md ring-0 transition-transform duration-300 ease-in-out flex items-center justify-center ${
+                    twoFactorEnabled ? 'translate-x-7' : 'translate-x-0'
+                  }`}
+                >
+                  {tfaLoading && <Loader2 className="w-3 h-3 text-slate-900 animate-spin" />}
+                </span>
+              </button>
+            </div>
+          </div>
+
+          {tfaSuccess && (
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-3 p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs flex items-center gap-2"
+            >
+              <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+              <span>{tfaSuccess}</span>
+            </motion.div>
+          )}
+
+          {tfaError && (
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-3 p-2.5 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-xs flex items-center gap-2"
+            >
+              <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+              <span>{tfaError}</span>
+            </motion.div>
+          )}
         </div>
 
         {/* ── Two Columns Layout Inside Single Container Card ── */}
@@ -320,7 +426,7 @@ const Profile = () => {
                       type={showNewPassword ? 'text' : 'password'}
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
-                      placeholder="Enter new password (min. 6 chars)"
+                      placeholder="Must satisfy strong password rules"
                       className="w-full pl-9 pr-9 py-2 rounded-lg bg-[#05050a] border border-gray-800 text-white placeholder-gray-500 text-xs focus:outline-none focus:border-sky-500/50 focus:ring-1 focus:ring-sky-500/50 transition-all font-mono"
                     />
                     <button
@@ -331,6 +437,7 @@ const Profile = () => {
                       {showNewPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                     </button>
                   </div>
+                  <PasswordStrengthChecklist password={newPassword} />
                 </div>
 
                 {/* Confirm New Password */}

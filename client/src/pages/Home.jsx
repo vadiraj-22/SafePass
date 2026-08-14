@@ -39,7 +39,7 @@ const Home = () => {
       <div className="relative z-10">
         <Hero />
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 md:pb-14">
+        <div className="max-w-6xl mx-auto px-6 md:px-10 lg:px-12 pb-10 md:pb-14">
 
           {/* Stats — Clean grid with dark overlay */}
           <div className="mb-14 md:mb-20">

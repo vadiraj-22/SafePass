@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(localStorage.getItem('token'));
 
-  const API_URL = import.meta.env.VITE_API_URL || 'https://safepass-60b0.onrender.com/api';
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
   // Configure axios defaults
   useEffect(() => {
@@ -73,6 +73,14 @@ export const AuthProvider = ({ children }) => {
         password
       });
 
+      if (response.data.requiresOtp) {
+        return {
+          requiresOtp: true,
+          email: response.data.email,
+          message: response.data.message
+        };
+      }
+
       const { token: newToken, user: newUser } = response.data;
       localStorage.setItem('token', newToken);
       setToken(newToken);
@@ -82,6 +90,82 @@ export const AuthProvider = ({ children }) => {
       return { 
         success: false, 
         message: error.response?.data?.message || 'Login failed' 
+      };
+    }
+  };
+
+  const verifyLoginOtp = async (email, otp) => {
+    try {
+      const response = await axios.post(`${API_URL}/auth/verify-login-otp`, {
+        email,
+        otp
+      });
+
+      const { token: newToken, user: newUser } = response.data;
+      localStorage.setItem('token', newToken);
+      setToken(newToken);
+      setUser(newUser);
+      return { success: true };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.response?.data?.message || 'OTP verification failed'
+      };
+    }
+  };
+
+  const resendLoginOtp = async (email) => {
+    try {
+      const response = await axios.post(`${API_URL}/auth/resend-login-otp`, { email });
+      return { success: true, message: response.data.message };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Failed to resend OTP'
+      };
+    }
+  };
+
+  const requestPasswordResetOtp = async (email) => {
+    try {
+      const response = await axios.post(`${API_URL}/auth/forgot-password`, { email });
+      return { success: true, message: response.data.message };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Failed to request reset OTP'
+      };
+    }
+  };
+
+  const resetPasswordWithOtp = async (email, otp, newPassword) => {
+    try {
+      const response = await axios.post(`${API_URL}/auth/reset-password`, {
+        email,
+        otp,
+        newPassword
+      });
+      return { success: true, message: response.data.message };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Password reset failed'
+      };
+    }
+  };
+
+  const toggle2FA = async (twoFactorEnabled) => {
+    try {
+      const response = await axios.put(`${API_URL}/auth/toggle-2fa`, { twoFactorEnabled });
+      setUser((prevUser) => ({
+        ...prevUser,
+        ...response.data.user
+      }));
+      return { success: true, message: response.data.message };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Failed to update 2-Step Verification setting'
       };
     }
   };
@@ -129,6 +213,11 @@ export const AuthProvider = ({ children }) => {
     loading,
     register,
     login,
+    verifyLoginOtp,
+    resendLoginOtp,
+    requestPasswordResetOtp,
+    resetPasswordWithOtp,
+    toggle2FA,
     logout,
     updateProfile,
     updatePassword,
@@ -137,4 +226,3 @@ export const AuthProvider = ({ children }) => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
-

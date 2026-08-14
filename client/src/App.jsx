@@ -9,6 +9,7 @@ import Features from './pages/Features';
 import About from './pages/About';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import ForgotPassword from './pages/ForgotPassword';
 import BreachAndStrengthChecker from './pages/BreachAndStrengthChecker';
 import PasswordGenerator from './pages/PasswordGenerator';
 import PasswordManager from './pages/PasswordManager';
@@ -46,6 +47,7 @@ const AppContent = () => {
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/breach-checker" element={<BreachAndStrengthChecker />} />
             <Route path="/password-generator" element={<PasswordGenerator />} />
             <Route 

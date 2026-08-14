@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { PanelLeftClose, PanelLeftOpen, Shield, ChevronRight } from 'lucide-react';
 
 // Comprehensive built-in HIBP dataset for high performance & offline reliability
 const HIBP_BREACH_CATALOG = [
@@ -203,6 +204,7 @@ const HIBP_TOOL_CARDS = [
 
 const BreachAndStrengthChecker = () => {
   const [activeTab, setActiveTab] = useState('email');
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [liveBreachCatalog, setLiveBreachCatalog] = useState(HIBP_BREACH_CATALOG);
 
   // -------------------------------------------------------------
@@ -471,93 +473,133 @@ const BreachAndStrengthChecker = () => {
   }, [liveBreachCatalog, catalogSearch, selectedDataFilter, sortOrder]);
 
   return (
-    <div className='relative text-white pt-24 md:pt-28 pb-16 px-4 md:px-6 max-w-6xl mx-auto space-y-6'>
+    <div className='relative text-white pt-24 md:pt-28 pb-16 px-4 md:px-6 max-w-7xl mx-auto space-y-6'>
       
       {/* ------------------------------------------------------------- */}
-      {/* EDITORIAL HEADER SECTION — Clean Emerald & Dark Theme */}
+      {/* EDITORIAL HEADER SECTION */}
       {/* ------------------------------------------------------------- */}
-      <div className="bg-black/65 backdrop-blur-md border border-gray-800/80 rounded-2xl md:rounded-3xl p-6 md:p-7 shadow-2xl space-y-4">
-        <div className="space-y-2">
+      <div className="bg-black/65 backdrop-blur-md border border-gray-800/80 rounded-2xl md:rounded-3xl p-5 md:p-6 shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div className="space-y-1.5">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-xs font-semibold uppercase tracking-wider">
             <span className="w-2 h-2 rounded-full bg-emerald-400" />
             HAVE I BEEN PWNED SECURITY SUITE
           </div>
 
           <motion.h1
-            className='font-display text-2xl md:text-4xl text-white font-extrabold tracking-tight leading-tight'
+            className='font-display text-2xl md:text-3xl text-white font-extrabold tracking-tight'
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
           >
             Breach Checker & <span className="text-emerald-400 font-extrabold">Threat Intelligence</span>
           </motion.h1>
 
-          <p className="text-slate-300 text-xs md:text-sm max-w-3xl leading-relaxed font-body">
-            Verify passwords, emails, public pastes, and organization domains against 10+ billion leaked credentials recorded in the Have I Been Pwned database.
+          <p className="text-slate-300 text-xs max-w-2xl leading-relaxed font-body">
+            Verify passwords, emails, public pastes, and organization domains against 10+ billion leaked credentials.
           </p>
         </div>
 
-        {/* ------------------------------------------------------------- */}
-        {/* HIBP TOOL CARDS SELECTION GRID */}
-        {/* ------------------------------------------------------------- */}
-        <div className="pt-6 border-t border-gray-800/60 space-y-4">
-          <div className="flex items-center justify-between font-mono text-xs text-slate-400">
-            <span className="uppercase tracking-widest font-semibold">SELECT TOOL CARD</span>
-            <span className="bg-white/5 px-2.5 py-1 rounded border border-gray-800">5 AVAILABLE CARDS</span>
+        {/* Desktop Sidebar Toggle Button */}
+        <button
+          onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+          className="hidden lg:flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gray-800/80 hover:bg-gray-700 border border-gray-700 text-slate-200 text-xs font-mono font-medium transition-colors shrink-0 cursor-pointer"
+          title={isSidebarCollapsed ? "Expand Tools Sidebar" : "Collapse Tools Sidebar"}
+        >
+          <PanelLeftClose className={`w-4 h-4 transition-transform duration-300 ${isSidebarCollapsed ? 'rotate-180 text-emerald-400' : ''}`} />
+          <span>{isSidebarCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}</span>
+        </button>
+      </div>
+
+      {/* ------------------------------------------------------------- */}
+      {/* SIDEBAR & RIGHT CONTENT LAYOUT */}
+      {/* ------------------------------------------------------------- */}
+      <div className="flex flex-col lg:flex-row gap-6 items-start">
+        {/* COLLAPSIBLE SIDEBAR (LEFT) — Smooth Framer Motion Animation */}
+        <motion.div
+          initial={false}
+          animate={{
+            width: isSidebarCollapsed ? '80px' : '320px',
+          }}
+          transition={{ type: 'spring', stiffness: 320, damping: 32 }}
+          className={`w-full overflow-hidden shrink-0 bg-black/65 backdrop-blur-md border border-gray-800/80 rounded-2xl md:rounded-3xl shadow-2xl space-y-3 transition-colors duration-200 ${
+            isSidebarCollapsed ? 'p-2.5' : 'p-4'
+          }`}
+        >
+          <div className={`flex items-center ${isSidebarCollapsed ? 'justify-center' : 'justify-between'} px-1 pb-2 border-b border-gray-800/60 font-mono text-xs`}>
+            {!isSidebarCollapsed ? (
+              <span className="uppercase tracking-widest font-semibold text-slate-400 text-[11px] whitespace-nowrap">Security Tools (5)</span>
+            ) : (
+              <button
+                onClick={() => setIsSidebarCollapsed(false)}
+                className="hidden lg:flex p-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-emerald-400 transition-colors cursor-pointer"
+                title="Expand Sidebar"
+              >
+                <PanelLeftOpen className="w-4 h-4" />
+              </button>
+            )}
+            <button
+              onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+              className="lg:hidden text-emerald-400 text-xs font-mono font-medium"
+            >
+              {isSidebarCollapsed ? 'Show All Tools ▼' : 'Hide Sidebar ▲'}
+            </button>
           </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+
+          <div className="space-y-2">
             {HIBP_TOOL_CARDS.map((card) => {
               const isActive = activeTab === card.id;
               return (
                 <button
                   key={card.id}
                   onClick={() => setActiveTab(card.id)}
-                  className={`relative p-5 rounded-2xl text-left transition-all flex flex-col justify-between min-h-[190px] border cursor-pointer ${
+                  className={`w-full text-left transition-colors duration-200 rounded-xl cursor-pointer border ${
+                    isSidebarCollapsed 
+                      ? 'p-2.5 flex justify-center items-center' 
+                      : 'p-3.5 flex items-start gap-3'
+                  } ${
                     isActive
-                      ? 'bg-[#141522] border-emerald-500/60 shadow-lg'
-                      : 'bg-[#0d0e16] hover:bg-[#12131f] border-gray-800 hover:border-gray-700'
+                      ? 'bg-[#141522] border-emerald-500/60 text-white shadow-md'
+                      : 'bg-[#0d0e16] hover:bg-[#12131f] border-gray-800/80 text-slate-400 hover:text-slate-200'
                   }`}
+                  title={card.title}
                 >
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <div className={`p-2.5 rounded-xl ${isActive ? 'bg-emerald-500/20 text-emerald-400' : 'bg-white/5 text-slate-400'}`}>
-                        {card.icon}
-                      </div>
-                      
-                      <span className={`text-[11px] font-mono font-medium px-2 py-0.5 rounded border ${
-                        isActive ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' : 'bg-white/5 text-slate-400 border-gray-800'
-                      }`}>
-                        {card.badge}
-                      </span>
-                    </div>
+                  <div className={`p-2.5 rounded-lg shrink-0 ${
+                    isActive ? 'bg-emerald-500/20 text-emerald-400' : 'bg-white/5 text-slate-400'
+                  }`}>
+                    {card.icon}
+                  </div>
 
-                    <div>
-                      <h3 className="text-base font-bold text-white font-display">
-                        {card.title}
-                      </h3>
-                      <p className="text-xs text-slate-300 leading-relaxed font-body mt-1">
+                  {!isSidebarCollapsed && (
+                    <motion.div
+                      initial={{ opacity: 0, x: -6 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -6 }}
+                      transition={{ duration: 0.18 }}
+                      className="flex-1 min-w-0 space-y-1 overflow-hidden"
+                    >
+                      <div className="flex items-center justify-between gap-1.5">
+                        <h3 className="text-xs font-bold text-white font-display truncate">
+                          {card.title}
+                        </h3>
+                        <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded border shrink-0 ${
+                          isActive ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30 font-semibold' : 'bg-white/5 text-slate-400 border-gray-800'
+                        }`}>
+                          {card.badge}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-300 leading-relaxed font-body">
                         {card.subtitle}
                       </p>
-                    </div>
-                  </div>
-
-                  <div className="pt-3 border-t border-gray-800/60 flex items-center justify-between text-xs font-mono">
-                    <span className={isActive ? "text-emerald-400 font-bold" : "text-slate-400"}>
-                      {isActive ? "ACTIVE" : "SELECT"}
-                    </span>
-                    <span className={isActive ? "text-emerald-400" : "text-slate-500"}>&rarr;</span>
-                  </div>
+                    </motion.div>
+                  )}
                 </button>
               );
             })}
           </div>
-        </div>
-      </div>
+        </motion.div>
 
-      {/* ------------------------------------------------------------- */}
-      {/* ACTIVE TOOL CONTENT CONTAINER — Clean Solid Buttons */}
-      {/* ------------------------------------------------------------- */}
-      <AnimatePresence mode="wait">
+        {/* RIGHT MAIN CONTENT PANEL */}
+        <div className="flex-1 w-full min-w-0">
+          <AnimatePresence mode="wait">
 
         {/* TOOL 1: EMAIL & ACCOUNT BREACH CHECKER */}
         {activeTab === 'email' && (
@@ -1126,6 +1168,8 @@ const BreachAndStrengthChecker = () => {
           </motion.div>
         )}
       </AnimatePresence>
+        </div>
+      </div>
     </div>
   );
 };

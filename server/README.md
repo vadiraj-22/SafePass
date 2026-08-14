@@ -1,126 +1,53 @@
-# SafePass Backend
+# SafePass Server API
 
-Express.js backend with MongoDB for SafePass Password Manager.
+Express.js REST backend service powering **SafePass Password Security Suite**.
 
-## Quick Start
+## ✨ Backend Features
+
+- **Authentication & Authorization**: JWT token generation and verification middleware.
+- **Password Hashing**: Salted key derivation with `bcryptjs`.
+- **2-Step Email Verification (OTP)**: Generates 6-digit OTP codes with 10-minute expiration windows.
+- **Nodemailer SMTP Integration**: Dispatches formatted security HTML emails with dev console logging fallback.
+- **User-Controlled 2FA Toggle**: Allows users to enable or disable 2-Step OTP login requirements.
+- **Strong Password Rules Engine**: Backend validation enforcing min 8 characters, uppercase, lowercase, numbers, and symbols.
+- **MongoDB ODM**: Structured user and password schemas using Mongoose.
+
+## 🛠️ Tech Stack
+
+- **Runtime**: Node.js, Express.js
+- **Database**: MongoDB, Mongoose ODM
+- **Security**: `bcryptjs`, `jsonwebtoken`
+- **Mail Transporter**: `nodemailer`
+- **CORS & Environment**: `cors`, `dotenv`
+
+## 🔌 API Endpoints Summary
+
+### Authentication Routes (`/api/auth`)
+- `POST /register` — Create a user account (enforces strong password policy).
+- `POST /login` — Validate credentials & issue token or trigger 2FA OTP.
+- `POST /verify-login-otp` — Verify 6-digit login OTP & issue token.
+- `POST /resend-login-otp` — Resend 6-digit verification OTP.
+- `POST /forgot-password` — Generate & email password reset OTP.
+- `POST /reset-password` — Validate reset OTP & set new password.
+- `PUT /toggle-2fa` — Enable/disable 2-Step Email Verification (Auth Required).
+- `GET /verify` — Check JWT bearer token status (Auth Required).
+- `PUT /profile` — Update account profile details (Auth Required).
+- `PUT /change-password` — Update account password (Auth Required).
+
+### Vault Routes (`/api/passwords`)
+- `GET /` — Fetch authenticated user's stored passwords.
+- `POST /` — Store a new password record.
+- `PUT /:id` — Update a stored password record.
+- `DELETE /:id` — Delete a password record.
+
+## 🚀 Quick Start
 
 ```bash
 # Install dependencies
 npm install
 
-# Start development server
+# Run backend development server with Nodemon
 npm run dev
-
-# Start production server
-npm start
 ```
 
-## Environment Variables
-
-Create a `.env` file (already created):
-
-```
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/safepass
-JWT_SECRET=your_secret_key
-NODE_ENV=development
-```
-
-## API Documentation
-
-### Authentication Endpoints
-
-#### Register User
-```
-POST /api/auth/register
-Content-Type: application/json
-
-{
-  "username": "john_doe",
-  "email": "john@example.com",
-  "password": "securepass123"
-}
-```
-
-#### Login User
-```
-POST /api/auth/login
-Content-Type: application/json
-
-{
-  "email": "john@example.com",
-  "password": "securepass123"
-}
-```
-
-#### Verify Token
-```
-GET /api/auth/verify
-Authorization: Bearer <token>
-```
-
-### Password Endpoints (Protected)
-
-All password endpoints require JWT token in Authorization header.
-
-#### Get All Passwords
-```
-GET /api/passwords
-Authorization: Bearer <token>
-```
-
-#### Add Password
-```
-POST /api/passwords
-Authorization: Bearer <token>
-Content-Type: application/json
-
-{
-  "website": "Gmail",
-  "username": "john@gmail.com",
-  "password": "mypassword123"
-}
-```
-
-#### Update Password
-```
-PUT /api/passwords/:id
-Authorization: Bearer <token>
-Content-Type: application/json
-
-{
-  "website": "Gmail",
-  "username": "john@gmail.com",
-  "password": "newpassword123"
-}
-```
-
-#### Delete Password
-```
-DELETE /api/passwords/:id
-Authorization: Bearer <token>
-```
-
-## Database Schema
-
-### User Model
-```javascript
-{
-  username: String (unique, required),
-  email: String (unique, required),
-  password: String (hashed, required),
-  createdAt: Date
-}
-```
-
-### Password Model
-```javascript
-{
-  userId: ObjectId (ref: User),
-  website: String (required),
-  username: String (required),
-  password: String (required),
-  createdAt: Date,
-  updatedAt: Date
-}
-```
+Server runs on `http://localhost:5000`.
