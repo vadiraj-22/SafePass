@@ -92,12 +92,16 @@ export const sendEmail = async ({ to, subject, otp, type = 'login_verification' 
     </html>
   `;
 
-  // Log OTP to server console in dev environment for debugging
-  console.log('\n==================================================');
-  console.log(`[DEV OTP LOG] 📧 Sent to: ${to}`);
-  console.log(`[DEV OTP LOG] 📌 Type: ${type}`);
-  console.log(`[DEV OTP LOG] 🔐 OTP Code: ${otp}`);
-  console.log('==================================================\n');
+  // Log OTP to server console in development environment only for debugging
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('\n==================================================');
+    console.log(`[DEV OTP LOG] 📧 Sent to: ${to}`);
+    console.log(`[DEV OTP LOG] 📌 Type: ${type}`);
+    console.log(`[DEV OTP LOG] 🔐 OTP Code: ${otp}`);
+    console.log('==================================================\n');
+  } else {
+    console.log(`[sendEmail] Preparing OTP email for: ${to} (Type: ${type})`);
+  }
 
   // Check if SMTP is configured
   if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
@@ -106,14 +110,20 @@ export const sendEmail = async ({ to, subject, otp, type = 'login_verification' 
   }
 
   try {
+    const port = Number(SMTP_PORT) || 587;
+    const isSecure = port === 465;
+
     const transporter = nodemailer.createTransport({
       host: SMTP_HOST,
-      port: Number(SMTP_PORT) || 587,
-      secure: Number(SMTP_PORT) === 465,
+      port,
+      secure: isSecure,
       auth: {
         user: SMTP_USER,
         pass: SMTP_PASS
-      }
+      },
+      connectionTimeout: 10000, // 10 seconds
+      greetingTimeout: 10000,
+      socketTimeout: 10000
     });
 
     // Explicitly set sender display name as "SafePass Security"
@@ -133,6 +143,6 @@ export const sendEmail = async ({ to, subject, otp, type = 'login_verification' 
     return { success: true, mode: 'smtp' };
   } catch (error) {
     console.error('[sendEmail] Error sending email via SMTP:', error.message);
-    return { success: true, mode: 'console_fallback', error: error.message };
+    return { success: false, mode: 'console_fallback', error: error.message };
   }
 };

@@ -82,13 +82,13 @@ router.post('/login', async (req, res) => {
       user.emailVerificationOtpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
       await user.save();
 
-      // Dispatch email
-      await sendEmail({
+      // Dispatch email in background (non-blocking) so HTTP response returns instantly
+      sendEmail({
         to: user.email,
         subject: 'SafePass Login Verification Code',
         otp,
         type: 'login_verification'
-      });
+      }).catch(err => console.error('[login] Non-blocking sendEmail error:', err.message));
 
       return res.json({
         requiresOtp: true,
@@ -183,12 +183,12 @@ router.post('/resend-login-otp', async (req, res) => {
     user.emailVerificationOtpExpires = new Date(Date.now() + 10 * 60 * 1000);
     await user.save();
 
-    await sendEmail({
+    sendEmail({
       to: user.email,
       subject: 'SafePass Login Verification Code',
       otp,
       type: 'login_verification'
-    });
+    }).catch(err => console.error('[resend-login-otp] Non-blocking sendEmail error:', err.message));
 
     res.json({ message: 'A new verification OTP has been sent to your email' });
   } catch (error) {
@@ -217,12 +217,12 @@ router.post('/forgot-password', async (req, res) => {
     user.resetPasswordOtpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 mins
     await user.save();
 
-    await sendEmail({
+    sendEmail({
       to: user.email,
       subject: 'SafePass Password Reset Verification',
       otp,
       type: 'password_reset'
-    });
+    }).catch(err => console.error('[forgot-password] Non-blocking sendEmail error:', err.message));
 
     res.json({ message: 'Password reset OTP sent to your email address' });
   } catch (error) {
