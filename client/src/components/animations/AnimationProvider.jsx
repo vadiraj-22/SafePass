@@ -30,10 +30,10 @@ export const globalVariants = {
 
   // Interactive variants for buttons and form elements
   button: {
-    rest: { scale: 1, boxShadow: "0 0 0 rgba(139, 92, 246, 0)" },
+    rest: { scale: 1, boxShadow: "0 0 0 rgba(16, 185, 129, 0)" },
     hover: {
       scale: 1.05,
-      boxShadow: "0 0 20px rgba(139, 92, 246, 0.3)",
+      boxShadow: "0 0 20px rgba(16, 185, 129, 0.35)",
       transition: { duration: 0.2 }
     },
     tap: { scale: 0.95 }
@@ -41,12 +41,12 @@ export const globalVariants = {
 
   formField: {
     unfocused: {
-      borderColor: "rgba(139, 92, 246, 0.2)",
-      boxShadow: "0 0 0 rgba(139, 92, 246, 0)"
+      borderColor: "rgba(16, 185, 129, 0.2)",
+      boxShadow: "0 0 0 rgba(16, 185, 129, 0)"
     },
     focused: {
-      borderColor: "rgba(139, 92, 246, 1)",
-      boxShadow: "0 0 10px rgba(139, 92, 246, 0.2)",
+      borderColor: "rgba(16, 185, 129, 1)",
+      boxShadow: "0 0 10px rgba(16, 185, 129, 0.2)",
       transition: { duration: 0.2 }
     }
   }
